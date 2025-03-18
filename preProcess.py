@@ -23,7 +23,7 @@ def featureSelectionPCA(df):
 
     pca = utils.PCA(n_components=40)
     pca.fit(df)
-    dfPCA = utils.pd.Dataframe(pca.transform(df))
+    dfPCA = utils.pd.DataFrame(pca.transform(df))
     print("Transformed Data (Principal Components):")
     print(dfPCA)
     print("Explained Variance Ratio:", pca.explained_variance_ratio_)
