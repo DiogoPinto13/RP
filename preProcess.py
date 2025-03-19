@@ -18,24 +18,3 @@ def preProcessDataset():
     print(dfNormalized.head(5))
 
     return dfNormalized, dfLabels
-
-def featureSelectionPCA(df):
-
-    pca = utils.PCA(n_components=40)
-    pca.fit(df)
-    dfPCA = utils.pd.DataFrame(pca.transform(df))
-    print("Transformed Data (Principal Components):")
-    print(dfPCA)
-    print("Explained Variance Ratio:", pca.explained_variance_ratio_)
-    
-    return dfPCA
-
-def featureSelectionLDA(dfData, dfLabels):
-    lda = utils.LinearDiscriminantAnalysis(n_components=1)
-    lda.fit(dfData, dfLabels)
-    dfDataLDA = utils.pd.DataFrame(lda.transform(dfData))
-    print("Transformed Data (Linear Discriminants):")
-    print(dfDataLDA)
-    print("Explained Variance Ratio: ", lda.explained_variance_ratio_)
-
-    return dfDataLDA
