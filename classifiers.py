@@ -4,13 +4,9 @@ def fisherLDA(dfTrain, dfTest, dfTargetTrain, dfTargetTest):
 	lda = utils.LinearDiscriminantAnalysis()
 	lda.fit(dfTrain, dfTargetTrain)
 
-	predictions = lda.predict(dfTest)
+	dfPredictions = lda.predict(dfTest)
 
-	print("Accuracy:", utils.accuracy_score(dfTargetTest, predictions))
-	print("\nConfusion Matrix:")
-	print(utils.confusion_matrix(dfTargetTest, predictions))
-	print("\nClassification Report:")
-	print(utils.classification_report(dfTargetTest, predictions))
+	return dfTargetTest, dfPredictions 
 
 def eucludianMinimumDistanceClassifier(dfTrain, dfTest, dfTargetTrain, dfTargetTest):
 	# get means for each class
@@ -39,11 +35,7 @@ def eucludianMinimumDistanceClassifier(dfTrain, dfTest, dfTargetTrain, dfTargetT
 	dfResults = dfTest.apply(d, axis=1)
 	dfPredictions = dfResults.apply(lambda result: 0 if result >= 0 else 1)
 
-	print("Accuracy:", utils.accuracy_score(dfTargetTest, dfPredictions))
-	print("\nConfusion Matrix:")
-	print(utils.confusion_matrix(dfTargetTest, dfPredictions))
-	print("\nClassification Report:")
-	print(utils.classification_report(dfTargetTest, dfPredictions))
+	return dfTargetTest, dfPredictions 
 
 def mahalanobisMinimumDistanceClassifier(dfTrain, dfTest, dfTargetTrain, dfTargetTest):
 	# get means for each class
@@ -83,11 +75,7 @@ def mahalanobisMinimumDistanceClassifier(dfTrain, dfTest, dfTargetTrain, dfTarge
 	dfResults = dfTest.apply(d, axis=1)
 	dfPredictions = dfResults.apply(lambda result: 0 if result >= 0 else 1)
 
-	print("Accuracy:", utils.accuracy_score(dfTargetTest, dfPredictions))
-	print("\nConfusion Matrix:")
-	print(utils.confusion_matrix(dfTargetTest, dfPredictions))
-	print("\nClassification Report:")
-	print(utils.classification_report(dfTargetTest, dfPredictions))
+	return dfTargetTest, dfPredictions 
 
 
 

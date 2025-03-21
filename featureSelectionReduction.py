@@ -1,17 +1,20 @@
 import utils
-import preProcess
 
-def featureReductionPCA(df, dfLabels, numberFeaturesToSelect = 10):
-  pca = utils.PCA(n_components=numberFeaturesToSelect)
-  pca.fit(df)
-  dfPCA = utils.pd.DataFrame(pca.transform(df))
+def featureReductionPCA(dfData, dfLabels, numberFeatures = None):
+  numberFeatures = numberFeatures if numberFeatures is not None else dfData.columns[1]
+
+  pca = utils.PCA(n_components=numberFeatures)
+  pca.fit(dfData)
+  dfPCA = utils.pd.DataFrame(pca.transform(dfData))
   print("Transformed Data (Principal Components):")
   print(dfPCA)
   print("Explained Variance Ratio:", pca.explained_variance_ratio_)
   
   return dfPCA
 
-def featureReductionLDA(dfData, dfLabels, numberFeaturesToSelect = 1):
+def featureReductionLDA(dfData, dfLabels, numberFeatures = None):
+  numberFeatures = numberFeatures if numberFeatures is not None else dfData.columns[1]
+
   lda = utils.LinearDiscriminantAnalysis(n_components=1)
   lda.fit(dfData, dfLabels)
   dfDataLDA = utils.pd.DataFrame(lda.transform(dfData))
@@ -21,7 +24,9 @@ def featureReductionLDA(dfData, dfLabels, numberFeaturesToSelect = 1):
 
   return dfDataLDA
 
-def featureSelectionKsTest(dfData, dfLabels, numberFeaturesToSelect = 10):
+def featureSelectionKsTest(dfData, dfLabels, numberFeatures = None):
+  numberFeatures = numberFeatures if numberFeatures is not None else dfData.columns[1]
+
   featureNames = dfData.columns.values
   dfData = dfData.to_numpy()
   classes = dfLabels.to_numpy().flatten()
@@ -42,8 +47,8 @@ def featureSelectionKsTest(dfData, dfLabels, numberFeaturesToSelect = 10):
   # get correlation matrix
   correlationMatrix = utils.np.corrcoef(dfData, rowvar=False)
 
-  # get features with correlation bigger than 85%
-  threshold = 0.85
+  # get features with correlation bigger than 90%
+  threshold = 0.9
   correlated_features = set()
   numberOfFeatures = len(featureNames)
   for i in range(numberOfFeatures):
@@ -56,7 +61,7 @@ def featureSelectionKsTest(dfData, dfLabels, numberFeaturesToSelect = 10):
 
   # select features with highest H value
   Hs = sorted(Hs.items(), key=lambda item: item[1], reverse=True) 
-  Hs = Hs[:numberFeaturesToSelect]
+  Hs = Hs[:numberFeatures]
   selected_features = [feature for feature, _ in Hs]
 
   # return df with selected features

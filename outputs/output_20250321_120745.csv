@@ -1,0 +1,2 @@
+numberFeaturesSelection,featureSelection,numberFeaturesReduction,featureReduction,classifier,TP,TN,FP,FN,accuracy,precision,recall,fScore
+10,featureSelectionKsTest,2,featureReductionPCA,fisherLDA,38611,29672,479,1977,0.9652808210463818,0.9877462266564339,0.951291021976939,0.9691759331308517
