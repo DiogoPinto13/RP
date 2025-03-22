@@ -1,4 +1,5 @@
 featureSelection,numberFeaturesSelection,featureReduction,numberFeaturesReduction,classifier,TP,TN,FP,FN,accuracy,precision,recall,fScore
+featureSelectionKsTest,1,No reduction,None,fisherLDA,40455,25590,0,4694,0.9336433933191026,1.0,0.8960331347316662,0.9451661137330031
 featureSelectionKsTest,2,No reduction,None,fisherLDA,40455,25907,0,4377,0.938124655423458,1.0,0.9023688436830836,0.948679165640719
 featureSelectionKsTest,3,No reduction,None,fisherLDA,40455,26130,0,4154,0.9412770890173737,1.0,0.9068797776233496,0.9511661807580175
 featureSelectionKsTest,4,No reduction,None,fisherLDA,40455,26184,0,4100,0.9420404585872009,1.0,0.9079789024800808,0.9517703799552993

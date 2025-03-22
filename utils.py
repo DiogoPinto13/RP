@@ -53,7 +53,7 @@ def showMenu():
         print("[2] - LDA")
         print("[3] - None")
         featureReductionOption = int(input("Option -> "))
-        if (featureReductionOption != 3):
+        if (featureReductionOption == 1):
             print("Please choose number of features for reduction: ")
             numberFeaturesReduction = int(input("Number of features ->" ))
 

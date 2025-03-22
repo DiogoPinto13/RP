@@ -33,16 +33,16 @@ def main():
 
     if optionTrain == 1:
         automaticTestings.generateDimensionalityCurve(
-            optionsFeatureSelection,
-            optionsFeatureReduction, 
+            dict(list(optionsFeatureSelection.items())[:-1]), 
+            dict(list(optionsFeatureReduction.items())[:-1]), 
             optionsFeatureClassifier, 
             dfData, 
             dfLabels
         )
     elif optionTrain == 2:
         automaticTestings.trainConfidenceInterval(
-            optionsFeatureSelection,
-            optionsFeatureReduction, 
+            dict(list(optionsFeatureSelection.items())[:-1]),
+            dict(list(optionsFeatureReduction.items())[:-1]), 
             optionsFeatureClassifier, 
             dfData, 
             dfLabels
