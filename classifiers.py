@@ -56,7 +56,10 @@ def mahalanobisMinimumDistanceClassifier(dfTrain, dfTest, dfTargetTrain, dfTarge
 	
 	# get inversed pooled covariance matrix
 	pooledCovariance = sum(covarianceMatrices) / len(sortedClasses)
-	inversedPooledCovariance = utils.inv(pooledCovariance)
+	if (dfTrain.shape[1] == 1): # dfTrain with just one feature
+		inversedPooledCovariance = utils.np.array([[1 / pooledCovariance]])
+	else:
+		inversedPooledCovariance = utils.inv(pooledCovariance)
 	
 	# set g function for each class
 	gFunctions = []

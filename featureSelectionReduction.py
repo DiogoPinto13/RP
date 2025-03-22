@@ -13,7 +13,10 @@ def featureReductionPCA(dfData, dfLabels, numberFeatures = None):
   return dfPCA
 
 def featureReductionLDA(dfData, dfLabels, numberFeatures = None):
-  lda = utils.LinearDiscriminantAnalysis(n_components=1)
+  # n_components is min(n_features, n_classes - 1)
+  # for our problem, n_classes = 2, so: n_components=1
+  lda = utils.LinearDiscriminantAnalysis(n_components=1) 
+
   lda.fit(dfData, dfLabels)
   dfDataLDA = utils.pd.DataFrame(lda.transform(dfData))
   print("Transformed Data (Linear Discriminants):")
