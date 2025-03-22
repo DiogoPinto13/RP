@@ -27,7 +27,7 @@ def main():
     }
     optionsFeatureClassifier = {
         1: classifiers.fisherLDA,
-        2: classifiers.eucludianMinimumDistanceClassifier,
+        2: classifiers.eucludeanMinimumDistanceClassifier,
         3: classifiers.mahalanobisMinimumDistanceClassifier
     }
 

@@ -7,7 +7,8 @@ def main(
   featureReduction,
   classifier,
   dfTargetTest,
-  dfPredictions
+  dfPredictions,
+  generateCSV=True
 ):
   # get confusion matrix
   tn, fp, fn, tp = utils.confusion_matrix(dfTargetTest, dfPredictions).ravel()
@@ -35,9 +36,10 @@ def main(
     "fScore": fScore
   }])
 
-  # save result df as csv
-  timestamp = utils.datetime.now().strftime("%Y%m%d_%H%M%S")
-  path = f"outputs/output_{timestamp}.csv"
-  dfResult.to_csv(path, index=False)
+  if generateCSV:
+    # save result df as csv
+    timestamp = utils.datetime.now().strftime("%Y%m%d_%H%M%S")
+    path = f"outputs/output_{timestamp}.csv"
+    dfResult.to_csv(path, index=False)
 
   return dfResult

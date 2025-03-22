@@ -8,7 +8,7 @@ def fisherLDA(dfTrain, dfTest, dfTargetTrain, dfTargetTest):
 
 	return dfTargetTest, dfPredictions 
 
-def eucludianMinimumDistanceClassifier(dfTrain, dfTest, dfTargetTrain, dfTargetTest):
+def eucludeanMinimumDistanceClassifier(dfTrain, dfTest, dfTargetTrain, dfTargetTest):
 	# get means for each class
 	means = []
 	sortedClasses = utils.np.sort(dfTargetTrain.unique())
