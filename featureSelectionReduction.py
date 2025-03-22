@@ -1,7 +1,7 @@
 import utils
 
 def featureReductionPCA(dfData, dfLabels, numberFeatures = None):
-  numberFeatures = numberFeatures if numberFeatures is not None else dfData.columns[1]
+  numberFeatures = numberFeatures if numberFeatures is not None else dfData.shape[1]
 
   pca = utils.PCA(n_components=numberFeatures)
   pca.fit(dfData)
@@ -13,8 +13,6 @@ def featureReductionPCA(dfData, dfLabels, numberFeatures = None):
   return dfPCA
 
 def featureReductionLDA(dfData, dfLabels, numberFeatures = None):
-  numberFeatures = numberFeatures if numberFeatures is not None else dfData.columns[1]
-
   lda = utils.LinearDiscriminantAnalysis(n_components=1)
   lda.fit(dfData, dfLabels)
   dfDataLDA = utils.pd.DataFrame(lda.transform(dfData))
@@ -25,7 +23,7 @@ def featureReductionLDA(dfData, dfLabels, numberFeatures = None):
   return dfDataLDA
 
 def featureSelectionKsTest(dfData, dfLabels, numberFeatures = None):
-  numberFeatures = numberFeatures if numberFeatures is not None else dfData.columns[1]
+  numberFeatures = numberFeatures if numberFeatures is not None else dfData.shape[1]
 
   featureNames = dfData.columns.values
   dfData = dfData.to_numpy()

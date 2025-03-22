@@ -12,6 +12,21 @@ from sklearn.model_selection import train_test_split
 from scipy import stats
 import matplotlib.pyplot as plt
 
+def getClassifierLabel(classifierFunctionName):
+    classifiers = {
+        "fisherLDA": "Fisher LDA",
+        "eucludeanMinimumDistanceClassifier": "Euclidean MDC",
+        "mahalanobisMinimumDistanceClassifier": "Mahalanobis MDC"
+    }
+    return classifiers[classifierFunctionName]
+
+def getReductionLabel(classifierFunctionName):
+    reductions = {
+        "featureReductionPCA": "PCA Reduction",
+        "featureReductionLDA": "LDA Reducation"
+    }
+    return reductions[classifierFunctionName]
+
 def showMenu():
     print("Please choose an option:")
     print("[1] - automatic testing for curve")
@@ -44,7 +59,7 @@ def showMenu():
 
         print("Please choose an option for classification: ")
         print("[1] - Fisher LDA")
-        print("[2] - Euclidian Minimum Distance Classifier")
+        print("[2] - Euclidean Minimum Distance Classifier")
         print("[3] - Mahalanobis Minimum Distance Classifier")
         classifierOption = int(input("Option -> "))
 
