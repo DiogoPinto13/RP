@@ -21,7 +21,7 @@ def trainConfidenceInterval(optionsFeatureSelection, optionsFeatureReduction, op
       dfDataSelected = featureSelectionReduction.featureSelectionKsTest(dfData, dfLabels, classifierDimensionality)
     
       for keyReduction, reduction in list(optionsFeatureReduction.items()):
-        dfDataReducted = reduction(dfDataSelected, dfLabels)
+        dfDataReducted = reduction(dfDataSelected, dfLabels, None, 1)
         
         for seed in range(30):
           dfTrain, dfTest, dfTargetTrain, dfTargetTest = utils.train_test_split(dfDataReducted, dfLabels, test_size=0.3, random_state=seed, stratify=dfLabels)
@@ -98,7 +98,6 @@ def generateDimensionalityCurve(optionsFeatureSelection, optionsFeatureReduction
 def plotCurveDimensionalities(resultsDict, columnsName):
 	outputDir = "outputs/cfd"
 	utils.os.makedirs(outputDir, exist_ok=True) 
-	print(resultsDict)
 	for classifier, dfResults in resultsDict.items():
 		dfResults = utils.pd.DataFrame(dfResults, columns=columnsName)
 		output_path = utils.os.path.join(outputDir, f"{utils.getClassifierLabel(classifier)}.csv")
