@@ -15,6 +15,4 @@ def preProcessDataset():
     scaler.fit(df)
     dfNormalized = utils.pd.DataFrame(scaler.fit_transform(df), columns=df.columns)
 
-    print(dfNormalized.head(5))
-
     return dfNormalized, dfLabels

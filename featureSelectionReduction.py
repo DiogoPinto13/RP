@@ -10,11 +10,11 @@ def featureReductionPCA(dfData, dfLabels, numberFeatures = None, criterionPCAOpt
   components = numberFeatures
   eigenvalues = pca.explained_variance_
   if (criterionPCAOption == 1):
-    # kaiser Criterion
+    # kaiser criterion
     kaiserComponents = sum(eigenvalues > 1)
     components = kaiserComponents
   elif (criterionPCAOption == 2):
-    # scree Test
+    # scree test
     diff = utils.np.diff(eigenvalues) * -1 # get difference between eigenvalues
     threshold = 0.1 * max(diff) # set threshold for diff
     screeComponents = utils.np.argmax(diff < threshold) + 1
@@ -23,10 +23,6 @@ def featureReductionPCA(dfData, dfLabels, numberFeatures = None, criterionPCAOpt
     pca = utils.PCA(n_components=components)
   
   dfPCA = utils.pd.DataFrame(pca.fit_transform(dfData))
-  print("Transformed Data (Principal Components):")
-  print(dfPCA)
-  print("Explained Variance Ratio:", pca.explained_variance_ratio_)
-  
   return dfPCA
 
 def featureReductionLDA(dfData, dfLabels, numberFeatures = None, criterionPCAOption = None):
@@ -36,10 +32,6 @@ def featureReductionLDA(dfData, dfLabels, numberFeatures = None, criterionPCAOpt
 
   lda.fit(dfData, dfLabels)
   dfDataLDA = utils.pd.DataFrame(lda.transform(dfData))
-  print("Transformed Data (Linear Discriminants):")
-  print(dfDataLDA)
-  print("Explained Variance Ratio: ", lda.explained_variance_ratio_)
-
   return dfDataLDA
 
 def featureSelectionKsTest(dfData, dfLabels, numberFeatures = None):

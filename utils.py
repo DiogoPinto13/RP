@@ -23,7 +23,7 @@ def getClassifierLabel(classifierFunctionName):
 def getReductionLabel(classifierFunctionName):
     reductions = {
         "featureReductionPCA": "PCA Reduction",
-        "featureReductionLDA": "LDA Reducation"
+        "featureReductionLDA": "LDA Reduction"
     }
     return reductions[classifierFunctionName]
 
@@ -71,7 +71,6 @@ def showMenu():
         print("[3] - Mahalanobis Minimum Distance Classifier")
         classifierOption = int(input("Option -> "))
 
-    print("numberFeaturesSelection", numberFeaturesSelection)
     return (
         optionTrain,
         featureSelectionOption,
