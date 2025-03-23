@@ -38,6 +38,7 @@ def showMenu():
     featureSelectionOption = None
     featureReductionOption = None
     classifierOption = None
+    criterionPCAOption = None
     
     if optionTrain == 3:
         print("Please choose an option for feature selection: ")
@@ -54,8 +55,15 @@ def showMenu():
         print("[3] - None")
         featureReductionOption = int(input("Option -> "))
         if (featureReductionOption == 1):
-            print("Please choose number of features for reduction: ")
-            numberFeaturesReduction = int(input("Number of features ->" ))
+            print("Please select how you want to select features for reduction: ")
+            print("[-1] - Use a criterion (Kaiser Criterion or Scree Test)")
+            print("[N] - Number of features")            
+            numberFeaturesReduction = int(input("Option -> " ))
+
+            if (numberFeaturesReduction == -1):
+                print("[1] - Kaiser Criterion")
+                print("[2] - Scree Test")
+                criterionPCAOption = int(input("Number of features -> "))
 
         print("Please choose an option for classification: ")
         print("[1] - Fisher LDA")
@@ -70,5 +78,6 @@ def showMenu():
         numberFeaturesSelection,
         featureReductionOption,
         numberFeaturesReduction,
-        classifierOption
+        classifierOption,
+        criterionPCAOption
     )

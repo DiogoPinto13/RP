@@ -1,0 +1,2 @@
+featureSelection,numberFeaturesSelection,featureReduction,numberFeaturesReduction,classifier,TP,TN,FP,FN,accuracy,precision,recall,fScore
+featureSelectionKsTest,20,featureReductionPCA,-1,mahalanobisMinimumDistanceClassifier,40583,30045,106,5,0.9984308514397998,0.997394873307282,0.9998768108800631,0.998634299986466

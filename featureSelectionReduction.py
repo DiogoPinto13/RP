@@ -1,18 +1,35 @@
 import utils
 
-def featureReductionPCA(dfData, dfLabels, numberFeatures = None):
+def featureReductionPCA(dfData, dfLabels, numberFeatures = None, criterionPCAOption = None):
   numberFeatures = numberFeatures if numberFeatures is not None else dfData.shape[1]
 
-  pca = utils.PCA(n_components=numberFeatures)
+  pca = utils.PCA(n_components=dfData.shape[1])
   pca.fit(dfData)
-  dfPCA = utils.pd.DataFrame(pca.transform(dfData))
+
+  # select features for reduction
+  components = numberFeatures
+  eigenvalues = pca.explained_variance_
+  if (criterionPCAOption == 1):
+    # kaiser Criterion
+    kaiserComponents = sum(eigenvalues > 1)
+    components = kaiserComponents
+  elif (criterionPCAOption == 2):
+    # scree Test
+    diff = utils.np.diff(eigenvalues) * -1 # get difference between eigenvalues
+    threshold = 0.1 * max(diff) # set threshold for diff
+    screeComponents = utils.np.argmax(diff < threshold) + 1
+    components = screeComponents
+  else:
+    pca = utils.PCA(n_components=components)
+  
+  dfPCA = utils.pd.DataFrame(pca.fit_transform(dfData))
   print("Transformed Data (Principal Components):")
   print(dfPCA)
   print("Explained Variance Ratio:", pca.explained_variance_ratio_)
   
   return dfPCA
 
-def featureReductionLDA(dfData, dfLabels, numberFeatures = None):
+def featureReductionLDA(dfData, dfLabels, numberFeatures = None, criterionPCAOption = None):
   # n_components is min(n_features, n_classes - 1)
   # for our problem, n_classes = 2, so: n_components=1
   lda = utils.LinearDiscriminantAnalysis(n_components=1) 

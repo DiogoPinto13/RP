@@ -13,7 +13,8 @@ def main():
         numberFeaturesSelection,
         featureReductionOption,
         numberFeaturesReduction,
-        classifierOption
+        classifierOption,
+        criterionPCAOption
     ) = utils.showMenu()
 
     optionsFeatureSelection = {
@@ -52,7 +53,7 @@ def main():
         dfData, dfLabels = featureSelectionFunction(dfData, dfLabels, numberFeaturesSelection) if featureSelectionFunction is not None else dfData, dfLabels
         
         featureReductionFunction = optionsFeatureReduction[featureReductionOption]
-        dfData, dfLabels = featureReductionFunction(dfData, dfLabels, numberFeaturesReduction) if featureReductionFunction is not None else dfData, dfLabels
+        dfData, dfLabels = featureReductionFunction(dfData, dfLabels, numberFeaturesReduction, criterionPCAOption) if featureReductionFunction is not None else dfData, dfLabels
         
         dfTrain, dfTest, dfTargetTrain, dfTargetTest = utils.train_test_split(dfData, dfLabels, test_size=0.3, random_state=42)
         classifierFunction = optionsFeatureClassifier[classifierOption]
