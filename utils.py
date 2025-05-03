@@ -19,7 +19,8 @@ def getClassifierLabel(classifierFunctionName):
         "fisherLDA": "Fisher LDA",
         "eucludeanMinimumDistanceClassifier": "Euclidean MDC",
         "mahalanobisMinimumDistanceClassifier": "Mahalanobis MDC",
-        "svmClassifier" : "SVM classifier"
+        "svmClassifier" : "SVM classifier",
+        "KNNClassifier": "KNN classifier"
     }
     return classifiers[classifierFunctionName]
 
@@ -73,6 +74,7 @@ def showMenu():
         print("[2] - Euclidean Minimum Distance Classifier")
         print("[3] - Mahalanobis Minimum Distance Classifier")
         print("[4] - SVM Classifier")
+        print("[5] - KNN Classifier")
         classifierOption = int(input("Option -> "))
 
     return (

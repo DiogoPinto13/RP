@@ -30,7 +30,8 @@ def main():
         1: classifiers.fisherLDA,
         2: classifiers.eucludeanMinimumDistanceClassifier,
         3: classifiers.mahalanobisMinimumDistanceClassifier,
-        4: classifiers.svmClassifier
+        4: classifiers.svmClassifier,
+        5: classifiers.KNNClassifier
     }
 
     if optionTrain == 1:
