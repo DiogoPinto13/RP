@@ -1,6 +1,10 @@
 import utils
 
-def fisherLDA(dfTrain, dfTest, dfTargetTrain, dfTargetTest):
+def fisherLDA(args):
+	dfTrain = args["dfTrain"]
+	dfTest = args["dfTest"]
+	dfTargetTrain = args["dfTargetTrain"]
+	dfTargetTest = args["dfTargetTest"]
 	lda = utils.LinearDiscriminantAnalysis()
 	lda.fit(dfTrain, dfTargetTrain)
 
@@ -8,7 +12,11 @@ def fisherLDA(dfTrain, dfTest, dfTargetTrain, dfTargetTest):
 
 	return dfTargetTest, dfPredictions 
 
-def eucludeanMinimumDistanceClassifier(dfTrain, dfTest, dfTargetTrain, dfTargetTest):
+def eucludeanMinimumDistanceClassifier(args):
+	dfTrain = args["dfTrain"]
+	dfTest = args["dfTest"]
+	dfTargetTrain = args["dfTargetTrain"]
+	dfTargetTest = args["dfTargetTest"]
 	# get means for each class
 	means = []
 	sortedClasses = utils.np.sort(dfTargetTrain.unique())
@@ -37,7 +45,11 @@ def eucludeanMinimumDistanceClassifier(dfTrain, dfTest, dfTargetTrain, dfTargetT
 
 	return dfTargetTest, dfPredictions 
 
-def mahalanobisMinimumDistanceClassifier(dfTrain, dfTest, dfTargetTrain, dfTargetTest):
+def mahalanobisMinimumDistanceClassifier(args):
+	dfTrain = args["dfTrain"]
+	dfTest = args["dfTest"]
+	dfTargetTrain = args["dfTargetTrain"]
+	dfTargetTest = args["dfTargetTest"]
 	# get means for each class
 	means = []
 	sortedClasses = utils.np.sort(dfTargetTrain.unique())
@@ -80,9 +92,31 @@ def mahalanobisMinimumDistanceClassifier(dfTrain, dfTest, dfTargetTrain, dfTarge
 
 	return dfTargetTest, dfPredictions 
 
+def svmClassifier(args):
+	dfTrain = args["dfTrain"]
+	dfTest = args["dfTest"]
+	dfTargetTrain = args["dfTargetTrain"]
+	dfTargetTest = args["dfTargetTest"]
+	c = args["c"]
+	gamma = args["gamma"]
 
+	svm = utils.SVC(kernel='rbf', C=c, gamma=gamma,random_state=42)
+	svm.fit(dfTrain, dfTargetTrain)
 
+	dfPredictions = svm.predict(dfTest)
+
+	return dfTargetTest, dfPredictions 
+
+def KNNClassifier(args):
+	dfTrain = args["dfTrain"]
+	dfTest = args["dfTest"]
+	dfTargetTrain = args["dfTargetTrain"]
+	dfTargetTest = args["dfTargetTest"]
+	k = args["k"]
+
+	knn = utils.KNeighborsClassifier(n_neighbors=k)
+	knn.fit(dfTrain, dfTargetTrain)
+
+	dfPredictions = knn.predict(dfTest)
 	
-	
-
-
+	return dfTargetTest, dfPredictions

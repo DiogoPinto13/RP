@@ -6,7 +6,9 @@ import pandas as pd
 from sklearn.preprocessing import MinMaxScaler, StandardScaler, RobustScaler
 from sklearn.decomposition import PCA
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, precision_score, recall_score, f1_score
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.model_selection import train_test_split
 from scipy import stats
@@ -16,7 +18,8 @@ def getClassifierLabel(classifierFunctionName):
     classifiers = {
         "fisherLDA": "Fisher LDA",
         "eucludeanMinimumDistanceClassifier": "Euclidean MDC",
-        "mahalanobisMinimumDistanceClassifier": "Mahalanobis MDC"
+        "mahalanobisMinimumDistanceClassifier": "Mahalanobis MDC",
+        "svmClassifier" : "SVM classifier"
     }
     return classifiers[classifierFunctionName]
 
@@ -69,6 +72,7 @@ def showMenu():
         print("[1] - Fisher LDA")
         print("[2] - Euclidean Minimum Distance Classifier")
         print("[3] - Mahalanobis Minimum Distance Classifier")
+        print("[4] - SVM Classifier")
         classifierOption = int(input("Option -> "))
 
     return (

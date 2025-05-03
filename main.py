@@ -29,7 +29,8 @@ def main():
     optionsFeatureClassifier = {
         1: classifiers.fisherLDA,
         2: classifiers.eucludeanMinimumDistanceClassifier,
-        3: classifiers.mahalanobisMinimumDistanceClassifier
+        3: classifiers.mahalanobisMinimumDistanceClassifier,
+        4: classifiers.svmClassifier
     }
 
     if optionTrain == 1:

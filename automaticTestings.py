@@ -1,6 +1,7 @@
 import utils
 import featureSelectionReduction
 import evaluation
+import classifiers
 
 def trainConfidenceInterval(optionsFeatureSelection, optionsFeatureReduction, optionsFeatureClassifier, dfData, dfLabels):
   dimensionalityPerClassifier = {
@@ -8,6 +9,10 @@ def trainConfidenceInterval(optionsFeatureSelection, optionsFeatureReduction, op
     "eucludeanMinimumDistanceClassifier": 12,
     "mahalanobisMinimumDistanceClassifier": 50
   }
+  c = 0.01
+  gamma = 0.01
+  k = 5
+
   resultsDict = {
     classifier.__name__: { 
       reduction.__name__: [] for key, reduction in list(optionsFeatureReduction.items()) 
@@ -25,7 +30,19 @@ def trainConfidenceInterval(optionsFeatureSelection, optionsFeatureReduction, op
         
         for seed in range(30):
           dfTrain, dfTest, dfTargetTrain, dfTargetTest = utils.train_test_split(dfDataReducted, dfLabels, test_size=0.3, random_state=seed, stratify=dfLabels)
-          dfPredictions, dfTargetTest = classifier(dfTrain, dfTest, dfTargetTrain, dfTargetTest)
+          classifier_args = {
+             "dfTrain": dfTrain,
+             "dfTest": dfTest,
+             "dfTargetTrain": dfTargetTrain,
+             "dfTargetTest":dfTargetTest
+          }
+          if classifier.__name__ == "svmClassifier":
+            classifier_args["c"] = c
+            classifier_args["gamma"] = gamma
+          if classifier._name__ == "KNNClassifier":
+            classifier_args["k"] = k
+
+          dfTargetTest, dfPredictions = classifier(classifier_args)
           dfResult = evaluation.main(
             classifierDimensionality,
             selection.__name__,
@@ -115,3 +132,52 @@ def plotCurveDimensionalities(resultsDict, columnsName):
 		output_path = utils.os.path.join(outputDir, f"{utils.getClassifierLabel(classifier)}.png")
 		utils.plt.savefig(output_path, bbox_inches="tight")
 		utils.plt.close()
+
+def parametersCombinationSVM(dfData, dfLabels):
+  cValues = [0.01, 0.1]
+  gammaValues = [0.01, 0.1]
+  for c in cValues:
+    for gamma in gammaValues:
+      for seed in range(30):
+        dfTrain, dfTest, dfTargetTrain, dfTargetTest = utils.train_test_split(dfData, dfLabels, test_size=0.3, random_state=seed, stratify=dfLabels)
+        classifier_args = {
+          "dfTrain": dfTrain,
+          "dfTest": dfTest,
+          "dfTargetTrain": dfTargetTrain,
+          "dfTargetTest":dfTargetTest,
+          "c": c,
+          "gamma": gamma
+        }
+        dfPredictions, dfTargetTest = classifiers.svmClassifier(classifier_args)
+        results_args = {
+          "classifier": classifiers.svmClassifier.__name__,
+          "dfTargetTest": dfTargetTest,
+          "dfPredictions": dfPredictions,
+          "generateCSV": True,
+          "c": c,
+          "gamma": gamma
+        }
+        dfResults = evaluation.parametersCombinationTest(results_args)
+
+def parametersCombinationKNN(dfData, dfLabels):
+  kValues = [(i + 1) for i in range(40) if i % 2 == 0]
+  for k in kValues:
+    for seed in range(30):
+      dfTrain, dfTest, dfTargetTrain, dfTargetTest = utils.train_test_split(dfData, dfLabels, test_size=0.3, random_state=seed, stratify=dfLabels)
+      classifier_args = {
+        "dfTrain": dfTrain,
+        "dfTest": dfTest,
+        "dfTargetTrain": dfTargetTrain,
+        "dfTargetTest":dfTargetTest,
+        "k": k
+      }
+      dfPredictions, dfTargetTest = classifiers.KNNClassifier(classifier_args)
+      results_args = {
+        "classifier": classifiers.KNNClassifier.__name__,
+        "dfTargetTest": dfTargetTest,
+        "dfPredictions": dfPredictions,
+        "generateCSV": True,
+        "k": k
+      }
+      dfResults = evaluation.parametersCombinationTest(results_args)
+
