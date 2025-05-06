@@ -34,14 +34,11 @@ def trainConfidenceInterval(optionsFeatureSelection, optionsFeatureReduction, op
              "dfTrain": dfTrain,
              "dfTest": dfTest,
              "dfTargetTrain": dfTargetTrain,
-             "dfTargetTest":dfTargetTest
+             "dfTargetTest":dfTargetTest,
+             "c": c,
+             "gamma": gamma,
+             "k": k
           }
-          if classifier.__name__ == "svmClassifier":
-            classifier_args["c"] = c
-            classifier_args["gamma"] = gamma
-          if classifier._name__ == "KNNClassifier":
-            classifier_args["k"] = k
-
           dfTargetTest, dfPredictions = classifier(classifier_args)
           dfResult = evaluation.main(
             classifierDimensionality,
