@@ -95,7 +95,7 @@ def generateDimensionalityCurve(optionsFeatureSelection, optionsFeatureReduction
 
       for keyClassifier, classifier in optionsFeatureClassifier.items():
         dfTrain, dfTest, dfTargetTrain, dfTargetTest = utils.train_test_split(dfDataSelected, dfLabels, test_size=0.3, random_state=42, stratify=dfLabels)
-        dfPredictions, dfTargetTest = classifier(dfTrain, dfTest, dfTargetTrain, dfTargetTest)
+        dfTargetTest, dfPredictions = classifier(dfTrain, dfTest, dfTargetTrain, dfTargetTest)
         
         dfResult = evaluation.main(
 					dimensionality,
@@ -134,8 +134,11 @@ def plotCurveDimensionalities(resultsDict, columnsName):
 		utils.plt.close()
 
 def parametersCombinationSVM(dfData, dfLabels):
-  cValues = [0.01, 0.1]
-  gammaValues = [0.01, 0.1]
+  #cValues = [0.01, 0.1]
+  #gammaValues = [0.01, 0.1]
+  cValues = utils.np.arange(-10,25.0,1.0)
+  gammaValues = utils.np.arange(-25.0,0.0,1.0)
+
   for c in cValues:
     for gamma in gammaValues:
       for seed in range(30):
