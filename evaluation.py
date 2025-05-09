@@ -48,8 +48,8 @@ def main(
 def parametersCombinationTest(args):
   classifier = args["classifier"]
   dfTargetTest = args["dfTargetTest"]
-  dfPredictions = args["dfTargetTest"]
-  generateCSV = args["dfTargetTest"]
+  dfPredictions = args["dfPredictions"]
+  generateCSV = bool(args["generateCSV"])
   # get confusion matrix
   tn, fp, fn, tp = utils.confusion_matrix(dfTargetTest, dfPredictions).ravel()
 
@@ -79,7 +79,7 @@ def parametersCombinationTest(args):
   if generateCSV:
     # save result df as csv
     timestamp = utils.datetime.now().strftime("%Y%m%d_%H%M%S")
-    path = f"outputs/parameters_combination_test/{classifier}/output_{timestamp}.csv"
-    dfResult.to_csv(path, index=False)
+    path = f"outputs/parameters_combination_test/{classifier}/output_1.csv"
+    dfResult.to_csv(path, mode='a', index=False, header=not utils.os.path.exists(path))
 
   return dfResult

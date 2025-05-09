@@ -133,7 +133,7 @@ def plotCurveDimensionalities(resultsDict, columnsName):
 def parametersCombinationSVM(dfData, dfLabels):
   #cValues = [0.01, 0.1]
   #gammaValues = [0.01, 0.1]
-  cValues = utils.np.arange(-10,25.0,1.0)
+  cValues = utils.np.arange(0.1,25.0,1.0)
   gammaValues = utils.np.arange(-25.0,0.0,1.0)
 
   for c in cValues:
@@ -148,7 +148,7 @@ def parametersCombinationSVM(dfData, dfLabels):
           "c": c,
           "gamma": gamma
         }
-        dfPredictions, dfTargetTest = classifiers.svmClassifier(classifier_args)
+        dfTargetTest, dfPredictions = classifiers.svmClassifier(classifier_args)
         results_args = {
           "classifier": classifiers.svmClassifier.__name__,
           "dfTargetTest": dfTargetTest,
@@ -171,7 +171,7 @@ def parametersCombinationKNN(dfData, dfLabels):
         "dfTargetTest":dfTargetTest,
         "k": k
       }
-      dfPredictions, dfTargetTest = classifiers.KNNClassifier(classifier_args)
+      dfTargetTest, dfPredictions = classifiers.KNNClassifier(classifier_args)
       results_args = {
         "classifier": classifiers.KNNClassifier.__name__,
         "dfTargetTest": dfTargetTest,

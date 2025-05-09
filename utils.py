@@ -36,6 +36,7 @@ def showMenu():
     print("[1] - automatic testing for curve")
     print("[2] - automatic testing for 30 iterations")
     print("[3] - normal")
+    print("[4] - automatic fine tuning")
     optionTrain = int(input("Option -> "))
     numberFeaturesSelection = None
     numberFeaturesReduction = None

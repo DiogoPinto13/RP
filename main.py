@@ -50,6 +50,9 @@ def main():
             dfData, 
             dfLabels
         )
+    elif optionTrain == 4:
+        #automaticTestings.parametersCombinationSVM(dfData, dfLabels)
+        automaticTestings.parametersCombinationKNN(dfData, dfLabels)
     else:
         featureSelectionFunction = optionsFeatureSelection[featureSelectionOption]
         dfData, dfLabels = featureSelectionFunction(dfData, dfLabels, numberFeaturesSelection) if featureSelectionFunction is not None else dfData, dfLabels
