@@ -130,6 +130,91 @@ def plotCurveDimensionalities(resultsDict, columnsName):
 		utils.plt.savefig(output_path, bbox_inches="tight")
 		utils.plt.close()
 
+def featureCorrelationResults(dfData):
+  outputDir = utils.Path("outputs/featureSelections/featureCorrelation")
+  outputDir.mkdir(parents=True, exist_ok=True)
+
+  df = utils.pd.DataFrame(dfData, columns=dfData.columns.values)
+  correlationMatrix = df.corr()
+
+  utils.plt.figure(figsize=(16, 14))
+  utils.sns.heatmap(correlationMatrix, annot=False, cmap="coolwarm", xticklabels=True, yticklabels=True)
+  utils.plt.title("Feature Correlation Heatmap")
+  utils.plt.tight_layout()
+  utils.plt.savefig(outputDir / "correlationHeatmap.png")
+  utils.plt.close()
+
+  correlatedPairs = []
+  for i in range(len(correlationMatrix.columns)):
+    for j in range(i + 1, len(correlationMatrix.columns)):
+      corr = correlationMatrix.iloc[i, j]
+      if abs(corr) > 0.9:
+        featureA = correlationMatrix.columns[i]
+        featureB = correlationMatrix.columns[j]
+        correlatedPairs.append((featureA, featureB, corr))
+
+  with open(outputDir / "highlyCorrelatedFeatures.txt", "w") as f:
+    f.write("Highly correlated feature pairs (|correlation| > 0.9):\n\n")
+    for a, b, corr in correlatedPairs:
+      f.write(f"{a} ↔ {b} → correlation = {corr:.3f}\n")
+
+def featureSelectionRocCurveResults(dfData, dfLabels):
+  outputDir = utils.Path("outputs/featureSelections/featureSelectionRocCurve")
+  outputDir.mkdir(parents=True, exist_ok=True)
+
+  aucScores = featureSelectionReduction.featureSelectionRocCurve(
+    dfData, 
+    dfLabels,   
+    False, 
+    None, 
+    True
+  )
+
+  # features ranking
+  rankingPath = outputDir / "featuresRanking.txt"
+  with open(rankingPath, "w") as f:
+    f.write("AUC ranking:\n\n")
+    for feature, score in aucScores:
+      f.write(f"{feature}-->{score:.3f}\n")
+  
+  # best and worst feature AUC curve
+  bestFeature, _ = aucScores[0]
+  worstFeature, _ = aucScores[-1]
+  fprBest, tprBest, _ = utils.roc_curve(dfLabels, dfData[bestFeature])
+  fprWorst, tprWorst, _ = utils.roc_curve(dfLabels, dfData[worstFeature])
+
+  utils.plt.figure()
+  utils.plt.plot(fprBest, tprBest, color="blue", lw=1.5, label=f"{bestFeature}")
+  utils.plt.plot(fprWorst, tprWorst, color="red", lw=1.5, label=f"{worstFeature}")
+  utils.plt.title("Best vs Worst Feature ROC Curve", fontsize=12, weight="bold")
+  utils.plt.xlabel("1-SP", fontsize=10)
+  utils.plt.ylabel("SS", fontsize=10)
+  utils.plt.xlim([0, 1])
+  utils.plt.ylim([0, 1])
+  utils.plt.legend(loc="lower right")
+  utils.plt.tight_layout()
+  utils.plt.savefig(outputDir / "rocCurve_BestVsWorst.png")
+  utils.plt.close()
+
+def featureSelectionKsResults(dfData, dfLabels):
+  outputDir = utils.Path("outputs/featureSelections/featureSelectionKs")
+  outputDir.mkdir(parents=True, exist_ok=True)
+
+  Hs = featureSelectionReduction.featureSelectionRocCurve(
+    dfData, 
+    dfLabels,   
+    False, 
+    None, 
+    True
+  )
+
+  # features ranking
+  rankingPath = outputDir / "featuresRanking.txt"
+  with open(rankingPath, "w") as f:
+    f.write("Kruskal-Wallis ranking:\n\n")
+    for feature, score in Hs:
+      f.write(f"{feature}-->{score:.3f}\n")
+
 def parametersCombinationSVM(dfData, dfLabels):
   #cValues = [0.01, 0.1]
   #gammaValues = [0.01, 0.1]
@@ -180,4 +265,3 @@ def parametersCombinationKNN(dfData, dfLabels):
         "k": k
       }
       dfResults = evaluation.parametersCombinationTest(results_args)
-
