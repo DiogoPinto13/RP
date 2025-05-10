@@ -11,7 +11,7 @@ def trainConfidenceInterval(optionsFeatureSelection, optionsFeatureReduction, op
   }
   c = 0.01
   gamma = 0.01
-  k = 5
+  k = 1
 
   resultsDict = {
     classifier.__name__: { 
@@ -31,13 +31,13 @@ def trainConfidenceInterval(optionsFeatureSelection, optionsFeatureReduction, op
         for seed in range(30):
           dfTrain, dfTest, dfTargetTrain, dfTargetTest = utils.train_test_split(dfDataReducted, dfLabels, test_size=0.3, random_state=seed, stratify=dfLabels)
           classifier_args = {
-             "dfTrain": dfTrain,
-             "dfTest": dfTest,
-             "dfTargetTrain": dfTargetTrain,
-             "dfTargetTest":dfTargetTest,
-             "c": c,
-             "gamma": gamma,
-             "k": k
+            "dfTrain": dfTrain,
+            "dfTest": dfTest,
+            "dfTargetTrain": dfTargetTrain,
+            "dfTargetTest":dfTargetTest,
+            "c": c,
+            "gamma": gamma,
+            "k": k
           }
           dfTargetTest, dfPredictions = classifier(classifier_args)
           dfResult = evaluation.main(
@@ -92,7 +92,15 @@ def generateDimensionalityCurve(optionsFeatureSelection, optionsFeatureReduction
 
       for keyClassifier, classifier in optionsFeatureClassifier.items():
         dfTrain, dfTest, dfTargetTrain, dfTargetTest = utils.train_test_split(dfDataSelected, dfLabels, test_size=0.3, random_state=42, stratify=dfLabels)
-        dfTargetTest, dfPredictions = classifier(dfTrain, dfTest, dfTargetTrain, dfTargetTest)
+        dfTargetTest, dfPredictions = classifier({
+          "dfTrain": dfTrain,
+          "dfTest": dfTest,
+          "dfTargetTrain": dfTargetTrain,
+          "dfTargetTest": dfTargetTest,
+          "c": 0.01,
+          "gamma": 0.01,
+          "k": 1
+        })
         
         dfResult = evaluation.main(
 					dimensionality,
@@ -110,25 +118,27 @@ def generateDimensionalityCurve(optionsFeatureSelection, optionsFeatureReduction
   plotCurveDimensionalities(resultsDict, columnNames)
 
 def plotCurveDimensionalities(resultsDict, columnsName):
-	outputDir = "outputs/cfd"
-	utils.os.makedirs(outputDir, exist_ok=True) 
-	for classifier, dfResults in resultsDict.items():
-		dfResults = utils.pd.DataFrame(dfResults, columns=columnsName)
-		output_path = utils.os.path.join(outputDir, f"{utils.getClassifierLabel(classifier)}.csv")
-		dfResults.to_csv(output_path, index=False)
+  for classifier, dfResults in resultsDict.items():
+    classifierLabel = utils.getClassifierLabel(classifier)
+    outputDir = f"outputs/classifiers/Critical Feature Dimension/{classifierLabel}"
+    utils.os.makedirs(outputDir, exist_ok=True)
 
-		x = dfResults["numberFeaturesSelection"]
-		y = dfResults["fScore"]
+    csvPath = utils.os.path.join(outputDir, "Critical Feature Dimension.csv")
+    dfResults = utils.pd.DataFrame(dfResults, columns=columnsName)
+    dfResults.to_csv(csvPath, index=False)
 
-		utils.plt.figure(figsize=(6, 4))
-		utils.plt.plot(x, y, color="red", linewidth=2) 
-		utils.plt.xlabel("Dimensionality")
-		utils.plt.ylabel("Performance (F-Score)")
-		utils.plt.title(f"Critical Feature Dimension (CFD)")
+    x = dfResults["numberFeaturesSelection"]
+    y = dfResults["fScore"]
 
-		output_path = utils.os.path.join(outputDir, f"{utils.getClassifierLabel(classifier)}.png")
-		utils.plt.savefig(output_path, bbox_inches="tight")
-		utils.plt.close()
+    utils.plt.figure(figsize=(6, 4))
+    utils.plt.plot(x, y, color="red", linewidth=2)
+    utils.plt.xlabel("Dimensionality")
+    utils.plt.ylabel("Performance (F-Score)")
+    utils.plt.title("Critical Feature Dimension (CFD)")
+    utils.plt.tight_layout()
+    plotPath = utils.os.path.join(outputDir,"Critical Feature Dimension.png")
+    utils.plt.savefig(plotPath, bbox_inches="tight")
+    utils.plt.close()
 
 def featureCorrelationResults(dfData):
   outputDir = utils.Path("outputs/featureSelections/featureCorrelation")

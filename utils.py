@@ -18,6 +18,7 @@ from pathlib import Path
 from itertools import combinations
 import seaborn as sns
 from sklearn.naive_bayes import GaussianNB
+from sklearn.model_selection import StratifiedKFold
 
 def getClassifierLabel(classifierFunctionName):
     classifiers = {
@@ -25,14 +26,14 @@ def getClassifierLabel(classifierFunctionName):
         "eucludeanMinimumDistanceClassifier": "Euclidean MDC",
         "mahalanobisMinimumDistanceClassifier": "Mahalanobis MDC",
         "svmClassifier" : "SVM classifier",
-        "KNNClassifier": "KNN classifier"
+        "KNNClassifier": "KNN classifier",
+        "naiveBayesClassifier": "Naive Bayes classifier"
     }
     return classifiers[classifierFunctionName]
 
 def getReductionLabel(classifierFunctionName):
     reductions = {
-        "featureReductionPCA": "PCA Reduction",
-        "featureReductionLDA": "LDA Reduction"
+        "featureReductionPCA": "PCA Reduction"
     }
     return reductions[classifierFunctionName]
 
@@ -116,10 +117,28 @@ def kruskal_wallis(data):
     H,pval = st.kruskal(*data)
     return (H,pval)
 
-def mann_whitney(data1,data2):
+def mann_whitney(data1, data2):
     """
     non parametric
     two samples
     independent
     """    
     return st.mannwhitneyu(data1, data2)
+
+def one_way_ind_anova(data):
+    """
+    parametric
+    many samples
+    independent
+    """
+    F,pval = st.f_oneway(*data)
+    return (F,pval)
+
+def t_test_ind(data1,data2, eq_var=True):
+    """
+    parametric
+    two samples
+    independent
+    """
+    t,pval = st.ttest_ind(data1,data2, equal_var=eq_var)
+    return (t,pval)

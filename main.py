@@ -25,8 +25,7 @@ def main():
     }
     optionsFeatureReduction = {
         1: featureSelectionReduction.featureReductionPCA,
-        2: featureSelectionReduction.featureReductionLDA,
-        3: None
+        2: None
     }
     optionsFeatureClassifier = {
         1: classifiers.fisherLDA,
