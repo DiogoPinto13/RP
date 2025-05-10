@@ -120,3 +120,16 @@ def KNNClassifier(args):
 	dfPredictions = knn.predict(dfTest)
 	
 	return dfTargetTest, dfPredictions
+
+def naiveBayesClassifier(args):
+  dfTrain = args["dfTrain"]
+  dfTest = args["dfTest"]
+  dfTargetTrain = args["dfTargetTrain"]
+  dfTargetTest = args["dfTargetTest"]
+
+  model = utils.GaussianNB()
+  model.fit(dfTrain, dfTargetTrain)
+
+  dfPredictions = model.predict(dfTest)
+  
+  return dfTargetTest, dfPredictions

@@ -7,7 +7,7 @@ from sklearn.preprocessing import MinMaxScaler, StandardScaler, RobustScaler
 from sklearn.decomposition import PCA
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.svm import SVC
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, precision_score, recall_score, f1_score
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, precision_score, recall_score, f1_score, roc_auc_score, auc, roc_curve
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.model_selection import train_test_split
@@ -16,6 +16,8 @@ import matplotlib.pyplot as plt
 import scipy.stats as st
 from pathlib import Path
 from itertools import combinations
+import seaborn as sns
+from sklearn.naive_bayes import GaussianNB
 
 def getClassifierLabel(classifierFunctionName):
     classifiers = {
@@ -40,6 +42,9 @@ def showMenu():
     print("[2] - automatic testing for 30 iterations")
     print("[3] - normal")
     print("[4] - automatic fine tuning")
+    print("[5] - automatic feature selection Roc Curve results")
+    print("[6] - automatic feature selection Kruskal-Wallis results")
+    print("[7] - automatic feature correlation results")
     optionTrain = int(input("Option -> "))
     numberFeaturesSelection = None
     numberFeaturesReduction = None
@@ -47,15 +52,19 @@ def showMenu():
     featureReductionOption = None
     classifierOption = None
     criterionPCAOption = None
+    removeCorrelated = None
     
     if optionTrain == 3:
         print("Please choose an option for feature selection: ")
         print("[1] - KS")
-        print("[2] - None")
+        print("[2] - ROC Curve")
+        print("[3] - None")
         featureSelectionOption = int(input("Option -> "))
-        if (featureSelectionOption != 2):
+        if (featureSelectionOption != 3):
             print("Please choose number of features for selection: ")
-            numberFeaturesSelection = int(input("Number of features -> "))
+            numberFeaturesSelection = int(input("Number of features (Total = 50) -> "))
+            print("Do you want to remove correlated features? [y/n]")
+            removeCorrelated = input("-> ").strip().lower() == "y"
 
         print("Please choose an option for feature reduction: ")
         print("[1] - PCA")
@@ -79,6 +88,7 @@ def showMenu():
         print("[3] - Mahalanobis Minimum Distance Classifier")
         print("[4] - SVM Classifier")
         print("[5] - KNN Classifier")
+        print("[6] - Naive Bayes Classifier")
         classifierOption = int(input("Option -> "))
 
     return (
@@ -87,6 +97,7 @@ def showMenu():
         numberFeaturesSelection,
         featureReductionOption,
         numberFeaturesReduction,
+        removeCorrelated,
         classifierOption,
         criterionPCAOption
     )
