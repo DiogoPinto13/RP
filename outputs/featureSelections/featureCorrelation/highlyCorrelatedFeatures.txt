@@ -1,0 +1,4 @@
+Highly correlated feature pairs (|correlation| > 0.9):
+
+URLLength ↔ NoOfLettersInURL → correlation = 0.956
+DomainTitleMatchScore ↔ URLTitleMatchScore → correlation = 0.961
