@@ -5,9 +5,10 @@ from pathlib import Path
 
 import classifiers
 import preProcess
+from statTests import baseStatTest
 import utils
 
-def plotCombinationsBoxplots(classifierFn, metric, basePath):
+def plotCombinationsBoxplots(metric, basePath):
   combinationDirs = sorted(
     [d for d in basePath.iterdir() if d.is_dir() and d.name.startswith("combination")],
     key=lambda d: int(d.name.replace("combination", ""))
@@ -110,7 +111,8 @@ def hyperparamGridSearch(
   pd.concat(combinationsResultsMean, ignore_index=True).to_csv(basePath / "combinationsResultsMean.csv", index=False)
   pd.concat(combinationsResultsStd, ignore_index=True).to_csv(basePath / "combinationsResultsStd.csv", index=False)
 
-  plotCombinationsBoxplots(classifierFn, metric, basePath)
+  plotCombinationsBoxplots(metric, basePath)
+  baseStatTest(classifierFn, "hyperparamGridSearch", metric)
 
 dfData, dfLabels = preProcess.preProcessDataset()
 
@@ -118,11 +120,12 @@ dfData = dfData.iloc[:100].copy()
 dfLabels = dfLabels.iloc[:100].copy()
 
 paramGrid = {
-  "k": list(range(1, 11))
+  "c": list(range(1, 2)),
+  "gamma": [0.01, 0.1],
 }
 
 hyperparamGridSearch(
-  classifierFn=classifiers.KNNClassifier,
+  classifierFn=classifiers.svmClassifier,
   paramGrid=paramGrid,
   dfData=dfData,
   dfLabels=dfLabels,

@@ -13,6 +13,9 @@ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.model_selection import train_test_split
 from scipy import stats
 import matplotlib.pyplot as plt
+import scipy.stats as st
+from pathlib import Path
+from itertools import combinations
 
 def getClassifierLabel(classifierFunctionName):
     classifiers = {
@@ -87,3 +90,25 @@ def showMenu():
         classifierOption,
         criterionPCAOption
     )
+
+def test_normal_sw(data):
+    """Shapiro-Wilk"""
+    norm_data = (data - np.mean(data))/(np.std(data)/np.sqrt(len(data)))
+    return st.shapiro(norm_data)
+
+def kruskal_wallis(data):
+    """
+    non parametric
+    many samples
+    independent
+    """     
+    H,pval = st.kruskal(*data)
+    return (H,pval)
+
+def mann_whitney(data1,data2):
+    """
+    non parametric
+    two samples
+    independent
+    """    
+    return st.mannwhitneyu(data1, data2)
