@@ -1,0 +1,3 @@
+featureSelection,numberFeaturesSelection,featureReduction,numberFeaturesReduction,classifier,TP,TN,FP,FN,accuracy,precision,recall,fScore
+featureSelectionKsTest,1,No reduction,None,naiveBayesClassifier,40430,30274,10,25,0.9995052234269639,0.9997527200791295,0.9993820294153998,0.9995673403795043
+featureSelectionRocCurve,1,No reduction,None,naiveBayesClassifier,40430,30274,10,25,0.9995052234269639,0.9997527200791295,0.9993820294153998,0.9995673403795043

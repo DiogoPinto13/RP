@@ -1,0 +1,242 @@
+1. Shapiro-Wilk normality test results for classifier 'KNNClassifier' and test 'hyperparamGridSearch':
+
+Combination 1: p = 0.9483 → Normal
+Combination 2: p = 0.1838 → Normal
+Combination 3: p = 0.9172 → Normal
+Combination 4: p = 0.2924 → Normal
+Combination 5: p = 0.9840 → Normal
+Combination 6: p = 0.9072 → Normal
+Combination 7: p = 0.8956 → Normal
+Combination 8: p = 0.6382 → Normal
+Combination 9: p = 0.4708 → Normal
+Combination 10: p = 0.8139 → Normal
+Combination 11: p = 0.4289 → Normal
+Combination 12: p = 0.6327 → Normal
+Combination 13: p = 0.5908 → Normal
+Combination 14: p = 0.9113 → Normal
+Combination 15: p = 0.7315 → Normal
+Combination 16: p = 0.6541 → Normal
+Combination 17: p = 0.6347 → Normal
+Combination 18: p = 0.2627 → Normal
+Combination 19: p = 0.9044 → Normal
+Combination 20: p = 0.4710 → Normal
+
+Result: All combinations are parametric.
+
+2. Data is parametric. Performing One-Way ANOVA to test for differences between parameter combinations of classifier 'KNNClassifier' and test 'hyperparamGridSearch':
+Result: p = 0.0000
+Conclusion: At least one combination differs significantly from the others.
+
+3. Pairwise Independent t-tests for combinations of classifier 'KNNClassifier' and test 'hyperparamGridSearch':
+Combination 1 beats Combination 2 (p = 0.0000, t = 11.80)
+Combination 1 beats Combination 3 (p = 0.0000, t = 16.11)
+Combination 1 beats Combination 4 (p = 0.0000, t = 20.65)
+Combination 1 beats Combination 5 (p = 0.0000, t = 20.49)
+Combination 1 beats Combination 6 (p = 0.0000, t = 23.49)
+Combination 1 beats Combination 7 (p = 0.0000, t = 27.13)
+Combination 1 beats Combination 8 (p = 0.0000, t = 29.89)
+Combination 1 beats Combination 9 (p = 0.0000, t = 32.04)
+Combination 1 beats Combination 10 (p = 0.0000, t = 32.95)
+Combination 1 beats Combination 11 (p = 0.0000, t = 38.34)
+Combination 1 beats Combination 12 (p = 0.0000, t = 41.37)
+Combination 1 beats Combination 13 (p = 0.0000, t = 43.15)
+Combination 1 beats Combination 14 (p = 0.0000, t = 46.56)
+Combination 1 beats Combination 15 (p = 0.0000, t = 48.95)
+Combination 1 beats Combination 16 (p = 0.0000, t = 47.52)
+Combination 1 beats Combination 17 (p = 0.0000, t = 47.02)
+Combination 1 beats Combination 18 (p = 0.0000, t = 47.95)
+Combination 1 beats Combination 19 (p = 0.0000, t = 46.78)
+Combination 1 beats Combination 20 (p = 0.0000, t = 46.51)
+Combination 2 beats Combination 3 (p = 0.0000, t = 5.94)
+Combination 2 beats Combination 4 (p = 0.0000, t = 10.62)
+Combination 2 beats Combination 5 (p = 0.0000, t = 11.98)
+Combination 2 beats Combination 6 (p = 0.0000, t = 14.82)
+Combination 2 beats Combination 7 (p = 0.0000, t = 17.98)
+Combination 2 beats Combination 8 (p = 0.0000, t = 20.94)
+Combination 2 beats Combination 9 (p = 0.0000, t = 23.44)
+Combination 2 beats Combination 10 (p = 0.0000, t = 24.94)
+Combination 2 beats Combination 11 (p = 0.0000, t = 29.79)
+Combination 2 beats Combination 12 (p = 0.0000, t = 32.83)
+Combination 2 beats Combination 13 (p = 0.0000, t = 34.80)
+Combination 2 beats Combination 14 (p = 0.0000, t = 37.88)
+Combination 2 beats Combination 15 (p = 0.0000, t = 40.24)
+Combination 2 beats Combination 16 (p = 0.0000, t = 39.34)
+Combination 2 beats Combination 17 (p = 0.0000, t = 38.98)
+Combination 2 beats Combination 18 (p = 0.0000, t = 39.85)
+Combination 2 beats Combination 19 (p = 0.0000, t = 39.03)
+Combination 2 beats Combination 20 (p = 0.0000, t = 38.97)
+Combination 3 beats Combination 4 (p = 0.0001, t = 4.27)
+Combination 3 beats Combination 5 (p = 0.0000, t = 6.44)
+Combination 3 beats Combination 6 (p = 0.0000, t = 8.96)
+Combination 3 beats Combination 7 (p = 0.0000, t = 11.51)
+Combination 3 beats Combination 8 (p = 0.0000, t = 14.39)
+Combination 3 beats Combination 9 (p = 0.0000, t = 16.96)
+Combination 3 beats Combination 10 (p = 0.0000, t = 18.86)
+Combination 3 beats Combination 11 (p = 0.0000, t = 22.88)
+Combination 3 beats Combination 12 (p = 0.0000, t = 25.71)
+Combination 3 beats Combination 13 (p = 0.0000, t = 27.72)
+Combination 3 beats Combination 14 (p = 0.0000, t = 30.24)
+Combination 3 beats Combination 15 (p = 0.0000, t = 32.40)
+Combination 3 beats Combination 16 (p = 0.0000, t = 32.12)
+Combination 3 beats Combination 17 (p = 0.0000, t = 31.94)
+Combination 3 beats Combination 18 (p = 0.0000, t = 32.68)
+Combination 3 beats Combination 19 (p = 0.0000, t = 32.28)
+Combination 3 beats Combination 20 (p = 0.0000, t = 32.45)
+Combination 4 beats Combination 5 (p = 0.0098, t = 2.67)
+Combination 4 beats Combination 6 (p = 0.0000, t = 5.11)
+Combination 4 beats Combination 7 (p = 0.0000, t = 7.47)
+Combination 4 beats Combination 8 (p = 0.0000, t = 10.40)
+Combination 4 beats Combination 9 (p = 0.0000, t = 13.08)
+Combination 4 beats Combination 10 (p = 0.0000, t = 15.19)
+Combination 4 beats Combination 11 (p = 0.0000, t = 18.96)
+Combination 4 beats Combination 12 (p = 0.0000, t = 21.78)
+Combination 4 beats Combination 13 (p = 0.0000, t = 23.85)
+Combination 4 beats Combination 14 (p = 0.0000, t = 26.22)
+Combination 4 beats Combination 15 (p = 0.0000, t = 28.36)
+Combination 4 beats Combination 16 (p = 0.0000, t = 28.30)
+Combination 4 beats Combination 17 (p = 0.0000, t = 28.17)
+Combination 4 beats Combination 18 (p = 0.0000, t = 28.88)
+Combination 4 beats Combination 19 (p = 0.0000, t = 28.63)
+Combination 4 beats Combination 20 (p = 0.0000, t = 28.89)
+Combination 5 beats Combination 6 (p = 0.0347, t = 2.16)
+Combination 5 beats Combination 7 (p = 0.0001, t = 4.15)
+Combination 5 beats Combination 8 (p = 0.0000, t = 6.85)
+Combination 5 beats Combination 9 (p = 0.0000, t = 9.39)
+Combination 5 beats Combination 10 (p = 0.0000, t = 11.55)
+Combination 5 beats Combination 11 (p = 0.0000, t = 14.73)
+Combination 5 beats Combination 12 (p = 0.0000, t = 17.30)
+Combination 5 beats Combination 13 (p = 0.0000, t = 19.28)
+Combination 5 beats Combination 14 (p = 0.0000, t = 21.25)
+Combination 5 beats Combination 15 (p = 0.0000, t = 23.17)
+Combination 5 beats Combination 16 (p = 0.0000, t = 23.44)
+Combination 5 beats Combination 17 (p = 0.0000, t = 23.41)
+Combination 5 beats Combination 18 (p = 0.0000, t = 24.03)
+Combination 5 beats Combination 19 (p = 0.0000, t = 24.02)
+Combination 5 beats Combination 20 (p = 0.0000, t = 24.39)
+Combination 6 vs Combination 7: Not significant (p = 0.0581, t = 1.93)
+Combination 6 beats Combination 8 (p = 0.0000, t = 4.70)
+Combination 6 beats Combination 9 (p = 0.0000, t = 7.32)
+Combination 6 beats Combination 10 (p = 0.0000, t = 9.60)
+Combination 6 beats Combination 11 (p = 0.0000, t = 12.74)
+Combination 6 beats Combination 12 (p = 0.0000, t = 15.34)
+Combination 6 beats Combination 13 (p = 0.0000, t = 17.37)
+Combination 6 beats Combination 14 (p = 0.0000, t = 19.31)
+Combination 6 beats Combination 15 (p = 0.0000, t = 21.25)
+Combination 6 beats Combination 16 (p = 0.0000, t = 21.59)
+Combination 6 beats Combination 17 (p = 0.0000, t = 21.58)
+Combination 6 beats Combination 18 (p = 0.0000, t = 22.20)
+Combination 6 beats Combination 19 (p = 0.0000, t = 22.24)
+Combination 6 beats Combination 20 (p = 0.0000, t = 22.64)
+Combination 7 beats Combination 8 (p = 0.0052, t = 2.90)
+Combination 7 beats Combination 9 (p = 0.0000, t = 5.66)
+Combination 7 beats Combination 10 (p = 0.0000, t = 8.09)
+Combination 7 beats Combination 11 (p = 0.0000, t = 11.27)
+Combination 7 beats Combination 12 (p = 0.0000, t = 13.95)
+Combination 7 beats Combination 13 (p = 0.0000, t = 16.07)
+Combination 7 beats Combination 14 (p = 0.0000, t = 18.06)
+Combination 7 beats Combination 15 (p = 0.0000, t = 20.06)
+Combination 7 beats Combination 16 (p = 0.0000, t = 20.44)
+Combination 7 beats Combination 17 (p = 0.0000, t = 20.43)
+Combination 7 beats Combination 18 (p = 0.0000, t = 21.06)
+Combination 7 beats Combination 19 (p = 0.0000, t = 21.12)
+Combination 7 beats Combination 20 (p = 0.0000, t = 21.55)
+Combination 8 beats Combination 9 (p = 0.0071, t = 2.79)
+Combination 8 beats Combination 10 (p = 0.0000, t = 5.33)
+Combination 8 beats Combination 11 (p = 0.0000, t = 8.33)
+Combination 8 beats Combination 12 (p = 0.0000, t = 10.98)
+Combination 8 beats Combination 13 (p = 0.0000, t = 13.12)
+Combination 8 beats Combination 14 (p = 0.0000, t = 14.99)
+Combination 8 beats Combination 15 (p = 0.0000, t = 16.96)
+Combination 8 beats Combination 16 (p = 0.0000, t = 17.48)
+Combination 8 beats Combination 17 (p = 0.0000, t = 17.50)
+Combination 8 beats Combination 18 (p = 0.0000, t = 18.11)
+Combination 8 beats Combination 19 (p = 0.0000, t = 18.27)
+Combination 8 beats Combination 20 (p = 0.0000, t = 18.76)
+Combination 9 beats Combination 10 (p = 0.0113, t = 2.62)
+Combination 9 beats Combination 11 (p = 0.0000, t = 5.41)
+Combination 9 beats Combination 12 (p = 0.0000, t = 8.00)
+Combination 9 beats Combination 13 (p = 0.0000, t = 10.14)
+Combination 9 beats Combination 14 (p = 0.0000, t = 11.88)
+Combination 9 beats Combination 15 (p = 0.0000, t = 13.80)
+Combination 9 beats Combination 16 (p = 0.0000, t = 14.44)
+Combination 9 beats Combination 17 (p = 0.0000, t = 14.51)
+Combination 9 beats Combination 18 (p = 0.0000, t = 15.09)
+Combination 9 beats Combination 19 (p = 0.0000, t = 15.35)
+Combination 9 beats Combination 20 (p = 0.0000, t = 15.89)
+Combination 10 beats Combination 11 (p = 0.0133, t = 2.55)
+Combination 10 beats Combination 12 (p = 0.0000, t = 5.03)
+Combination 10 beats Combination 13 (p = 0.0000, t = 7.11)
+Combination 10 beats Combination 14 (p = 0.0000, t = 8.69)
+Combination 10 beats Combination 15 (p = 0.0000, t = 10.52)
+Combination 10 beats Combination 16 (p = 0.0000, t = 11.28)
+Combination 10 beats Combination 17 (p = 0.0000, t = 11.39)
+Combination 10 beats Combination 18 (p = 0.0000, t = 11.92)
+Combination 10 beats Combination 19 (p = 0.0000, t = 12.27)
+Combination 10 beats Combination 20 (p = 0.0000, t = 12.86)
+Combination 11 beats Combination 12 (p = 0.0121, t = 2.59)
+Combination 11 beats Combination 13 (p = 0.0000, t = 4.79)
+Combination 11 beats Combination 14 (p = 0.0000, t = 6.39)
+Combination 11 beats Combination 15 (p = 0.0000, t = 8.30)
+Combination 11 beats Combination 16 (p = 0.0000, t = 9.16)
+Combination 11 beats Combination 17 (p = 0.0000, t = 9.29)
+Combination 11 beats Combination 18 (p = 0.0000, t = 9.84)
+Combination 11 beats Combination 19 (p = 0.0000, t = 10.25)
+Combination 11 beats Combination 20 (p = 0.0000, t = 10.89)
+Combination 12 beats Combination 13 (p = 0.0290, t = 2.24)
+Combination 12 beats Combination 14 (p = 0.0004, t = 3.77)
+Combination 12 beats Combination 15 (p = 0.0000, t = 5.67)
+Combination 12 beats Combination 16 (p = 0.0000, t = 6.64)
+Combination 12 beats Combination 17 (p = 0.0000, t = 6.79)
+Combination 12 beats Combination 18 (p = 0.0000, t = 7.33)
+Combination 12 beats Combination 19 (p = 0.0000, t = 7.81)
+Combination 12 beats Combination 20 (p = 0.0000, t = 8.50)
+Combination 13 vs Combination 14: Not significant (p = 0.1512, t = 1.45)
+Combination 13 beats Combination 15 (p = 0.0016, t = 3.32)
+Combination 13 beats Combination 16 (p = 0.0001, t = 4.37)
+Combination 13 beats Combination 17 (p = 0.0000, t = 4.55)
+Combination 13 beats Combination 18 (p = 0.0000, t = 5.07)
+Combination 13 beats Combination 19 (p = 0.0000, t = 5.61)
+Combination 13 beats Combination 20 (p = 0.0000, t = 6.33)
+Combination 14 vs Combination 15: Not significant (p = 0.0611, t = 1.91)
+Combination 14 beats Combination 16 (p = 0.0036, t = 3.04)
+Combination 14 beats Combination 17 (p = 0.0020, t = 3.23)
+Combination 14 beats Combination 18 (p = 0.0004, t = 3.76)
+Combination 14 beats Combination 19 (p = 0.0001, t = 4.35)
+Combination 14 beats Combination 20 (p = 0.0000, t = 5.11)
+Combination 15 vs Combination 16: Not significant (p = 0.2322, t = 1.21)
+Combination 15 vs Combination 17: Not significant (p = 0.1599, t = 1.42)
+Combination 15 vs Combination 18: Not significant (p = 0.0569, t = 1.94)
+Combination 15 beats Combination 19 (p = 0.0122, t = 2.59)
+Combination 15 beats Combination 20 (p = 0.0013, t = 3.38)
+Combination 16 vs Combination 17: Not significant (p = 0.8254, t = 0.22)
+Combination 16 vs Combination 18: Not significant (p = 0.4769, t = 0.72)
+Combination 16 vs Combination 19: Not significant (p = 0.1749, t = 1.37)
+Combination 16 beats Combination 20 (p = 0.0349, t = 2.16)
+Combination 17 vs Combination 18: Not significant (p = 0.6271, t = 0.49)
+Combination 17 vs Combination 19: Not significant (p = 0.2565, t = 1.15)
+Combination 17 vs Combination 20: Not significant (p = 0.0586, t = 1.93)
+Combination 18 vs Combination 19: Not significant (p = 0.5034, t = 0.67)
+Combination 18 vs Combination 20: Not significant (p = 0.1474, t = 1.47)
+Combination 19 vs Combination 20: Not significant (p = 0.4345, t = 0.79)
+
+Ranking based on number of pairwise wins:
+1. Combination 1 — 19 wins
+2. Combination 2 — 18 wins
+3. Combination 3 — 17 wins
+4. Combination 4 — 16 wins
+5. Combination 5 — 15 wins
+6. Combination 6 — 13 wins
+7. Combination 7 — 13 wins
+8. Combination 8 — 12 wins
+9. Combination 9 — 11 wins
+10. Combination 10 — 10 wins
+11. Combination 11 — 9 wins
+12. Combination 12 — 8 wins
+13. Combination 13 — 6 wins
+14. Combination 14 — 5 wins
+15. Combination 15 — 2 wins
+16. Combination 16 — 1 wins
+17. Combination 17 — 0 wins
+18. Combination 18 — 0 wins
+19. Combination 19 — 0 wins
+20. Combination 20 — 0 wins
