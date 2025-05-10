@@ -1,0 +1,24 @@
+1. Shapiro-Wilk normality test results for classifier 'KNNClassifier' and test 'hyperparamGridSearch':
+
+Combination 1: p = 0.9483 → Normal
+Combination 2: p = 0.1838 → Normal
+Combination 3: p = 0.9172 → Normal
+Combination 4: p = 0.2924 → Normal
+Combination 5: p = 0.9840 → Normal
+Combination 6: p = 0.9072 → Normal
+Combination 7: p = 0.8956 → Normal
+Combination 8: p = 0.6382 → Normal
+Combination 9: p = 0.4708 → Normal
+Combination 10: p = 0.8139 → Normal
+Combination 11: p = 0.4289 → Normal
+Combination 12: p = 0.6327 → Normal
+Combination 13: p = 0.5908 → Normal
+Combination 14: p = 0.9113 → Normal
+Combination 15: p = 0.7315 → Normal
+Combination 16: p = 0.6541 → Normal
+Combination 17: p = 0.6347 → Normal
+Combination 18: p = 0.2627 → Normal
+Combination 19: p = 0.9044 → Normal
+Combination 20: p = 0.4710 → Normal
+
+Result: All combinations are parametric.
