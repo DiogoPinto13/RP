@@ -65,7 +65,7 @@ def hyperparamGridSearch(
   combinations = list(product(*paramGrid.values()))
   paramNames = list(paramGrid.keys())
 
-  basePath = Path(f"outputs/classifiers/{classifierFn.__name__}/hyperparamGridSearch")
+  basePath = Path(f"outputs/classifiers/{utils.getClassifierLabel(classifierFn.__name__)}/hyperparamGridSearch")
   basePath.mkdir(parents=True, exist_ok=True)
 
   combinationsResultsMean = []
@@ -127,20 +127,4 @@ paramGridKNN = {
   "k": [i for i in range(40) if i%2 != 0] #list(range(1, 3, 5))
 }
 
-hyperparamGridSearch(
-  classifierFn=classifiers.KNNClassifier,
-  paramGrid=paramGridKNN,
-  dfData=dfData,
-  dfLabels=dfLabels,
-  nRepeats=30,
-  metric="fScore"
-)
-
-# hyperparamGridSearch(
-#   classifierFn=classifiers.svmClassifier,
-#   paramGrid=paramGridSVM,
-#   dfData=dfData,
-#   dfLabels=dfLabels,
-#   nRepeats=30,
-#   metric="fScore"
-# )
+baseStatTest(classifiers.KNNClassifier, "hyperparamGridSearch", "fScore")

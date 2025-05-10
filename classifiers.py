@@ -5,7 +5,10 @@ def fisherLDA(args):
 	dfTest = args["dfTest"]
 	dfTargetTrain = args["dfTargetTrain"]
 	dfTargetTest = args["dfTargetTest"]
-	lda = utils.LinearDiscriminantAnalysis()
+
+	# n_components is min(n_features, n_classes - 1)
+  # for our problem, n_classes = 2, so: n_components=1
+	lda = utils.LinearDiscriminantAnalysis(n_components=1) 
 	lda.fit(dfTrain, dfTargetTrain)
 
 	dfPredictions = lda.predict(dfTest)

@@ -25,15 +25,6 @@ def featureReductionPCA(dfData, dfLabels, numberFeatures = None, criterionPCAOpt
   dfPCA = utils.pd.DataFrame(pca.fit_transform(dfData))
   return dfPCA
 
-def featureReductionLDA(dfData, dfLabels, numberFeatures = None, criterionPCAOption = None):
-  # n_components is min(n_features, n_classes - 1)
-  # for our problem, n_classes = 2, so: n_components=1
-  lda = utils.LinearDiscriminantAnalysis(n_components=1) 
-
-  lda.fit(dfData, dfLabels)
-  dfDataLDA = utils.pd.DataFrame(lda.transform(dfData))
-  return dfDataLDA
-
 def removeCorrelatedFeatures(selectedFeaturesDict, dfData, featureNames, threshold = 0.9):
   # get correlation matrix
   correlationMatrix = utils.np.corrcoef(dfData, rowvar=False)
