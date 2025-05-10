@@ -1,0 +1,10 @@
+1. Shapiro-Wilk normality test results for classifier 'svmClassifier' and test 'hyperparamGridSearch':
+
+Combination 1: p = 0.0000 → Not normal
+Combination 2: p = 0.0000 → Not normal
+
+Result: At least one combination is not parametric.
+
+2. Due to the normality test indicating non-parametric data, performing Kruskal-Wallis test for differences between parameter combinations of classifier 'svmClassifier' and test 'hyperparamGridSearch':
+Result: p = 0.7882
+Conclusion: No significant difference between combinations.

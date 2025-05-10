@@ -114,21 +114,33 @@ def hyperparamGridSearch(
   plotCombinationsBoxplots(metric, basePath)
   baseStatTest(classifierFn, "hyperparamGridSearch", metric)
 
+#dfDev, dfTest, dfTargetDev, dfTargetTest = preProcess.preProcessDataset(True)
 dfData, dfLabels = preProcess.preProcessDataset()
 
-dfData = dfData.iloc[:100].copy()
-dfLabels = dfLabels.iloc[:100].copy()
 
-paramGrid = {
-  "c": list(range(1, 2)),
-  "gamma": [0.01, 0.1],
+paramGridSVM = {
+  "c": [0.01, 0.1, 1, 10],
+  "gamma": [0.01, 0.1, 1, 10],
+}
+
+paramGridKNN = {
+  "k": [i for i in range(40) if i%2 != 0] #list(range(1, 3, 5))
 }
 
 hyperparamGridSearch(
-  classifierFn=classifiers.svmClassifier,
-  paramGrid=paramGrid,
+  classifierFn=classifiers.KNNClassifier,
+  paramGrid=paramGridKNN,
   dfData=dfData,
   dfLabels=dfLabels,
   nRepeats=30,
   metric="fScore"
 )
+
+# hyperparamGridSearch(
+#   classifierFn=classifiers.svmClassifier,
+#   paramGrid=paramGridSVM,
+#   dfData=dfData,
+#   dfLabels=dfLabels,
+#   nRepeats=30,
+#   metric="fScore"
+# )

@@ -1,6 +1,6 @@
 import utils
 
-def preProcessDataset():
+def preProcessDataset(returnTestDf=False):
     df = utils.pd.read_csv("PhiUSIIL_Phishing_URL_Dataset.csv")
     dfLabels = df["label"]
     df = df.drop('label', axis=1)
@@ -15,4 +15,6 @@ def preProcessDataset():
     scaler.fit(df)
     dfNormalized = utils.pd.DataFrame(scaler.fit_transform(df), columns=df.columns)
 
-    return dfNormalized, dfLabels
+    dfDev, dfTest, dfTargetDev, dfTargetTest = utils.train_test_split(dfNormalized, dfLabels, test_size=0.3, random_state=42, stratify=dfLabels)
+    
+    return (dfDev, dfTest, dfTargetDev, dfTargetTest) if returnTestDf else (dfNormalized, dfLabels)
