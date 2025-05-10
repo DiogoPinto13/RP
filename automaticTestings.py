@@ -7,10 +7,13 @@ def trainConfidenceInterval(optionsFeatureSelection, optionsFeatureReduction, op
   dimensionalityPerClassifier = {
     "fisherLDA": 50,
     "eucludeanMinimumDistanceClassifier": 12,
-    "mahalanobisMinimumDistanceClassifier": 50
+    "mahalanobisMinimumDistanceClassifier": 50,
+    "svmClassifier" : 13,
+    "KNNClassifier": 13,
+    "naiveBayesClassifier": 13
   }
-  c = 0.01
-  gamma = 0.01
+  c = 0.1
+  gamma = 0.1
   k = 1
 
   resultsDict = {
@@ -22,13 +25,13 @@ def trainConfidenceInterval(optionsFeatureSelection, optionsFeatureReduction, op
 
   for keyClassifier, classifier in optionsFeatureClassifier.items():
     classifierDimensionality = dimensionalityPerClassifier[classifier.__name__]
-    for k, selection in list(optionsFeatureSelection.items()):
+    for k, selection in list(optionsFeatureSelection.items())[:1]:
       dfDataSelected = featureSelectionReduction.featureSelectionKsTest(dfData, dfLabels, classifierDimensionality)
     
       for keyReduction, reduction in list(optionsFeatureReduction.items()):
         dfDataReducted = reduction(dfDataSelected, dfLabels, None, 1)
         
-        for seed in range(30):
+        for seed in range(2):
           dfTrain, dfTest, dfTargetTrain, dfTargetTest = utils.train_test_split(dfDataReducted, dfLabels, test_size=0.3, random_state=seed, stratify=dfLabels)
           classifier_args = {
             "dfTrain": dfTrain,
@@ -65,20 +68,25 @@ def plot_boxplots(resultsDict, columnNames):
     fScoreValues = []
     for classifier in resultsDict.keys():
       dfResults = utils.pd.DataFrame(resultsDict[classifier][reduction], columns=columnNames)
-      output_path = utils.os.path.join(outputDir, f"{utils.getReductionLabel(reduction)}_{utils.getClassifierLabel(classifier)}.csv")
-      dfResults.to_csv(output_path, index=False)
+      outputPath = utils.os.path.join(outputDir, f"{utils.getReductionLabel(reduction)} {utils.getClassifierLabel(classifier)}.csv")
+      dfResults.to_csv(outputPath, index=False)
 
       classifierFScoreValues = dfResults["fScore"]
       fScoreValues.append(classifierFScoreValues)
 
     classifiersLabels = [utils.getClassifierLabel(classifier) for classifier in classifiers]
+    
+    utils.plt.figure(figsize=(12, 6))
     utils.plt.boxplot(fScoreValues, patch_artist=True, boxprops=dict(color="blue"), medianprops=dict(color="red"))
-    utils.plt.xticks(range(1, len(classifiersLabels) + 1), classifiersLabels, fontsize=12)
+
+    utils.plt.xticks(range(1, len(classifiersLabels) + 1), classifiersLabels, fontsize=11, rotation=30, ha='right')
     utils.plt.ylabel('F-Score', fontsize=12)
     utils.plt.title(f'Classifiers Comparison ({utils.getReductionLabel(reduction)})', fontsize=14)
 
-    output_path = utils.os.path.join(outputDir, f"{utils.getReductionLabel(reduction)}.png")
-    utils.plt.savefig(output_path, bbox_inches="tight")
+    utils.plt.tight_layout()
+    
+    outputPath = utils.os.path.join(outputDir, f"{utils.getReductionLabel(reduction)}.png")
+    utils.plt.savefig(outputPath, bbox_inches="tight")
     utils.plt.close()
 
 def generateDimensionalityCurve(optionsFeatureSelection, optionsFeatureReductionSelection, optionsFeatureClassifier, dfData, dfLabels):

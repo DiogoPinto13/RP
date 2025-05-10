@@ -1,4 +1,5 @@
 import utils
+import classifiers
 
 def logStatsMsg(logFile, msg, reset=False):
   print(msg)
@@ -191,14 +192,28 @@ def checkPairwiseNonParametricComparisons(classifier, testType, metric):
   for rank, (idx, winCount) in enumerate(ranked, start=1):
     logStatsMsg(logFile, f"{rank}. Combination {idx+1} — {winCount} wins")
 
-def baseStatTest(classifier, testType, metric="fScore"):
-  isParametric = checkCombinationsNormality(classifier, testType, metric)
+# def baseStatTest(classifier, testType, metric="fScore", onlyTwo=False):
+#   isParametric = checkCombinationsNormality(classifier, testType, metric)
 
-  if isParametric:
-    isDifferent = checkParametricCombinationsDifference(classifier, testType, metric)
-    if isDifferent:
-      checkPairwiseParametricComparisons(classifier, testType, metric)
+#   if isParametric:
+#     isDifferent = checkParametricCombinationsDifference(classifier, testType, metric)
+#     if isDifferent:
+#       checkPairwiseParametricComparisons(classifier, testType, metric)
+#   else:
+#     isDifferent = checkNonParametricCombinationsDifference(classifier, testType, metric)
+#     if isDifferent:
+#       checkPairwiseNonParametricComparisons(classifier, testType, metric)
+
+def base_stat_test(evolve_type, algorithm, test_type, only_two=False):
+  is_parametric = checkCombinationsNormality(evolve_type, algorithm, test_type)
+
+  if only_two:
+    if is_parametric: checkPairwiseParametricComparisons(evolve_type, algorithm, test_type)
+    else: checkPairwiseNonParametricComparisons(evolve_type, algorithm, test_type) 
   else:
-    isDifferent = checkNonParametricCombinationsDifference(classifier, testType, metric)
-    if isDifferent:
-      checkPairwiseNonParametricComparisons(classifier, testType, metric)
+    if not is_parametric:
+      is_different = checkNonParametricCombinationsDifference(evolve_type, algorithm, test_type) 
+      if is_different:
+        checkPairwiseNonParametricComparisons(evolve_type, algorithm, test_type)
+
+base_stat_test(classifiers.svmClassifier, "hyperparamGridSearch", "fScore", True)
