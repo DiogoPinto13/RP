@@ -1,3 +1,4 @@
+import preProcess
 import utils
 import featureSelectionReduction
 import evaluation
@@ -8,9 +9,9 @@ def trainConfidenceInterval(optionsFeatureSelection, optionsFeatureReduction, op
     "fisherLDA": 50,
     "eucludeanMinimumDistanceClassifier": 12,
     "mahalanobisMinimumDistanceClassifier": 50,
-    "svmClassifier" : 13,
-    "KNNClassifier": 13,
-    "naiveBayesClassifier": 13
+    "svmClassifier" : 13, # COMPLETAR
+    "KNNClassifier": 13, # COMPLETAR
+    "naiveBayesClassifier": 13 # COMPLETAR
   }
   c = 0.1
   gamma = 0.1
@@ -31,7 +32,7 @@ def trainConfidenceInterval(optionsFeatureSelection, optionsFeatureReduction, op
       for keyReduction, reduction in list(optionsFeatureReduction.items()):
         dfDataReducted = reduction(dfDataSelected, dfLabels, None, 1)
         
-        for seed in range(2):
+        for seed in range(30):
           dfTrain, dfTest, dfTargetTrain, dfTargetTest = utils.train_test_split(dfDataReducted, dfLabels, test_size=0.3, random_state=seed, stratify=dfLabels)
           classifier_args = {
             "dfTrain": dfTrain,
@@ -99,6 +100,8 @@ def generateDimensionalityCurve(optionsFeatureSelection, optionsFeatureReduction
       dfDataSelected = featureSelectionReduction.featureSelectionKsTest(dfData, dfLabels, dimensionality)
 
       for keyClassifier, classifier in optionsFeatureClassifier.items():
+        if keyClassifier != 4:
+          continue
         dfTrain, dfTest, dfTargetTrain, dfTargetTest = utils.train_test_split(dfDataSelected, dfLabels, test_size=0.3, random_state=42, stratify=dfLabels)
         dfTargetTest, dfPredictions = classifier({
           "dfTrain": dfTrain,
@@ -128,7 +131,7 @@ def generateDimensionalityCurve(optionsFeatureSelection, optionsFeatureReduction
 def plotCurveDimensionalities(resultsDict, columnsName):
   for classifier, dfResults in resultsDict.items():
     classifierLabel = utils.getClassifierLabel(classifier)
-    outputDir = f"outputs/classifiers/Critical Feature Dimension/{classifierLabel}"
+    outputDir = f"outputs/classifiers/{classifierLabel}/Critical Feature Dimension"
     utils.os.makedirs(outputDir, exist_ok=True)
 
     csvPath = utils.os.path.join(outputDir, "Critical Feature Dimension.csv")
@@ -283,3 +286,29 @@ def parametersCombinationKNN(dfData, dfLabels):
         "k": k
       }
       dfResults = evaluation.parametersCombinationTest(results_args)
+
+optionsFeatureSelection = {
+  1: featureSelectionReduction.featureSelectionKsTest,
+  2: featureSelectionReduction.featureSelectionRocCurve,
+  3: None
+}
+optionsFeatureReduction = {
+  1: featureSelectionReduction.featureReductionPCA,
+  2: None
+}
+optionsFeatureClassifier = {
+  1: classifiers.fisherLDA,
+  2: classifiers.eucludeanMinimumDistanceClassifier,
+  3: classifiers.mahalanobisMinimumDistanceClassifier,
+  4: classifiers.svmClassifier,
+  5: classifiers.KNNClassifier,
+  6: classifiers.naiveBayesClassifier
+}
+dfData, dfLabels = preProcess.preProcessDataset()
+generateDimensionalityCurve(
+  dict(list(optionsFeatureSelection.items())[:-1]), 
+  dict(list(optionsFeatureReduction.items())[:-1]), 
+  optionsFeatureClassifier, 
+  dfData, 
+  dfLabels
+)

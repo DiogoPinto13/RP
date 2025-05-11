@@ -64,14 +64,5 @@ def performanceTestDataset(
   utils.plt.title("Performance Test Dataset", fontsize=13)
   utils.plt.ylabel("F1-Score", fontsize=12)
   utils.plt.legend()
-  utils.plt.savefig(utils.os.path.join(outputDir, "performanceBoxplot.png"), bbox_inches='tight')
+  utils.plt.savefig(utils.os.path.join(outputDir, "performanceBoxplot.png"), bbox_inches="tight")
   utils.plt.close()
-
-
-# naiveBayesClassifier, KNNClassifier
-performanceTestDataset(
-  classifierFn=classifiers.KNNClassifier,
-  classifierParams={
-    "k": 1
-  }
-)
