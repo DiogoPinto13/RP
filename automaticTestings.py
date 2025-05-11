@@ -10,8 +10,8 @@ def trainConfidenceInterval(optionsFeatureSelection, optionsFeatureReduction, op
     "eucludeanMinimumDistanceClassifier": 12,
     "mahalanobisMinimumDistanceClassifier": 50,
     "svmClassifier" : 50, 
-    "KNNClassifier": 50, 
-    "naiveBayesClassifier": 50 
+    "KNNClassifier": 12, 
+    "naiveBayesClassifier": 16 
   }
   c = 0.1
   gamma = 0.1
