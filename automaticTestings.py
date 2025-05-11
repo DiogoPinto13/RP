@@ -237,35 +237,3 @@ def featureSelectionKsResults(dfData, dfLabels):
     for feature, score in Hs:
       f.write(f"{feature}-->{score:.3f}\n")
 
-optionsFeatureSelection = {
-  1: featureSelectionReduction.featureSelectionKsTest,
-  2: featureSelectionReduction.featureSelectionRocCurve,
-  3: None
-}
-optionsFeatureReduction = {
-  1: featureSelectionReduction.featureReductionPCA,
-  2: None
-}
-optionsFeatureClassifier = {
-  1: classifiers.fisherLDA,
-  2: classifiers.eucludeanMinimumDistanceClassifier,
-  3: classifiers.mahalanobisMinimumDistanceClassifier,
-  4: classifiers.svmClassifier,
-  5: classifiers.KNNClassifier,
-  6: classifiers.naiveBayesClassifier
-}
-dfData, dfLabels = preProcess.preProcessDataset()
-generateDimensionalityCurve(
-  dict(list(optionsFeatureSelection.items())[:-1]), 
-  dict(list(optionsFeatureReduction.items())[:-1]), 
-  optionsFeatureClassifier, 
-  dfData, 
-  dfLabels
-)
-trainConfidenceInterval(
-  dict(list(optionsFeatureSelection.items())[:-1]),
-  dict(list(optionsFeatureReduction.items())[:-1]), 
-  optionsFeatureClassifier, 
-  dfData, 
-  dfLabels
-)
