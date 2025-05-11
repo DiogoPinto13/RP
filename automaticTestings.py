@@ -9,9 +9,9 @@ def trainConfidenceInterval(optionsFeatureSelection, optionsFeatureReduction, op
     "fisherLDA": 50,
     "eucludeanMinimumDistanceClassifier": 12,
     "mahalanobisMinimumDistanceClassifier": 50,
-    "svmClassifier" : 13, # COMPLETAR
-    "KNNClassifier": 13, # COMPLETAR
-    "naiveBayesClassifier": 13 # COMPLETAR
+    "svmClassifier" : 50, 
+    "KNNClassifier": 50, 
+    "naiveBayesClassifier": 50 
   }
   c = 0.1
   gamma = 0.1
@@ -96,20 +96,21 @@ def generateDimensionalityCurve(optionsFeatureSelection, optionsFeatureReduction
   columnNames = []
   
   for dimensionality in dimensionalities:
-    for keySelection, selection in list(optionsFeatureSelection.items()):
+    for keySelection, selection in list(optionsFeatureSelection.items())[:1]:
       dfDataSelected = featureSelectionReduction.featureSelectionKsTest(dfData, dfLabels, dimensionality)
 
       for keyClassifier, classifier in optionsFeatureClassifier.items():
-        if keyClassifier != 4:
+        if keyClassifier in [1,2,3]:
           continue
+
         dfTrain, dfTest, dfTargetTrain, dfTargetTest = utils.train_test_split(dfDataSelected, dfLabels, test_size=0.3, random_state=42, stratify=dfLabels)
         dfTargetTest, dfPredictions = classifier({
           "dfTrain": dfTrain,
           "dfTest": dfTest,
           "dfTargetTrain": dfTargetTrain,
           "dfTargetTest": dfTargetTest,
-          "c": 0.01,
-          "gamma": 0.01,
+          "c": 0.1,
+          "gamma": 0.1,
           "k": 1
         })
         
@@ -186,8 +187,8 @@ def featureSelectionRocCurveResults(dfData, dfLabels):
   aucScores = featureSelectionReduction.featureSelectionRocCurve(
     dfData, 
     dfLabels,   
-    False, 
     None, 
+    False,
     True
   )
 
@@ -221,11 +222,11 @@ def featureSelectionKsResults(dfData, dfLabels):
   outputDir = utils.Path("outputs/featureSelections/featureSelectionKs")
   outputDir.mkdir(parents=True, exist_ok=True)
 
-  Hs = featureSelectionReduction.featureSelectionRocCurve(
+  Hs = featureSelectionReduction.featureSelectionKsTest(
     dfData, 
     dfLabels,   
-    False, 
     None, 
+    False, 
     True
   )
 
@@ -235,57 +236,6 @@ def featureSelectionKsResults(dfData, dfLabels):
     f.write("Kruskal-Wallis ranking:\n\n")
     for feature, score in Hs:
       f.write(f"{feature}-->{score:.3f}\n")
-
-def parametersCombinationSVM(dfData, dfLabels):
-  #cValues = [0.01, 0.1]
-  #gammaValues = [0.01, 0.1]
-  cValues = utils.np.arange(0.1,25.0,1.0)
-  gammaValues = utils.np.arange(-25.0,0.0,1.0)
-
-  for c in cValues:
-    for gamma in gammaValues:
-      for seed in range(30):
-        dfTrain, dfTest, dfTargetTrain, dfTargetTest = utils.train_test_split(dfData, dfLabels, test_size=0.3, random_state=seed, stratify=dfLabels)
-        classifier_args = {
-          "dfTrain": dfTrain,
-          "dfTest": dfTest,
-          "dfTargetTrain": dfTargetTrain,
-          "dfTargetTest":dfTargetTest,
-          "c": c,
-          "gamma": gamma
-        }
-        dfTargetTest, dfPredictions = classifiers.svmClassifier(classifier_args)
-        results_args = {
-          "classifier": classifiers.svmClassifier.__name__,
-          "dfTargetTest": dfTargetTest,
-          "dfPredictions": dfPredictions,
-          "generateCSV": True,
-          "c": c,
-          "gamma": gamma
-        }
-        dfResults = evaluation.parametersCombinationTest(results_args)
-
-def parametersCombinationKNN(dfData, dfLabels):
-  kValues = [(i + 1) for i in range(40) if i % 2 == 0]
-  for k in kValues:
-    for seed in range(30):
-      dfTrain, dfTest, dfTargetTrain, dfTargetTest = utils.train_test_split(dfData, dfLabels, test_size=0.3, random_state=seed, stratify=dfLabels)
-      classifier_args = {
-        "dfTrain": dfTrain,
-        "dfTest": dfTest,
-        "dfTargetTrain": dfTargetTrain,
-        "dfTargetTest":dfTargetTest,
-        "k": k
-      }
-      dfTargetTest, dfPredictions = classifiers.KNNClassifier(classifier_args)
-      results_args = {
-        "classifier": classifiers.KNNClassifier.__name__,
-        "dfTargetTest": dfTargetTest,
-        "dfPredictions": dfPredictions,
-        "generateCSV": True,
-        "k": k
-      }
-      dfResults = evaluation.parametersCombinationTest(results_args)
 
 optionsFeatureSelection = {
   1: featureSelectionReduction.featureSelectionKsTest,
@@ -307,6 +257,13 @@ optionsFeatureClassifier = {
 dfData, dfLabels = preProcess.preProcessDataset()
 generateDimensionalityCurve(
   dict(list(optionsFeatureSelection.items())[:-1]), 
+  dict(list(optionsFeatureReduction.items())[:-1]), 
+  optionsFeatureClassifier, 
+  dfData, 
+  dfLabels
+)
+trainConfidenceInterval(
+  dict(list(optionsFeatureSelection.items())[:-1]),
   dict(list(optionsFeatureReduction.items())[:-1]), 
   optionsFeatureClassifier, 
   dfData, 

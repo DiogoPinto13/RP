@@ -63,7 +63,7 @@ def main():
         automaticTestings.featureCorrelationResults(dfData)
     else:
         featureSelectionFunction = optionsFeatureSelection[featureSelectionOption]
-        dfData, dfLabels = featureSelectionFunction(dfData, dfLabels, removeCorrelated, numberFeaturesSelection) if featureSelectionFunction is not None else dfData, dfLabels
+        dfData, dfLabels = featureSelectionFunction(dfData, dfLabels, numberFeaturesSelection, removeCorrelated) if featureSelectionFunction is not None else dfData, dfLabels
         
         featureReductionFunction = optionsFeatureReduction[featureReductionOption]
         dfData, dfLabels = featureReductionFunction(dfData, dfLabels, numberFeaturesReduction, criterionPCAOption) if featureReductionFunction is not None else dfData, dfLabels

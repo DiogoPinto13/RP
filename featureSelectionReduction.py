@@ -40,7 +40,7 @@ def removeCorrelatedFeatures(selectedFeaturesDict, dfData, featureNames, thresho
   
   return {index: score for index, score in selectedFeaturesDict.items() if index not in correlated_features}
 
-def featureSelectionKsTest(dfData, dfLabels, removeCorrelated, numberFeatures = None):
+def featureSelectionKsTest(dfData, dfLabels, numberFeatures = None, removeCorrelated = True, returnRanked = False):
   numberFeatures = numberFeatures if numberFeatures is not None else dfData.shape[1]
 
   featureNames = dfData.columns.values
@@ -69,11 +69,15 @@ def featureSelectionKsTest(dfData, dfLabels, removeCorrelated, numberFeatures = 
   Hs = Hs[:numberFeatures]
   selectedFeatures = [feature for feature, _ in Hs]
 
-  # return df with selected features
-  dfData = utils.pd.DataFrame(dfData, columns=featureNames)
-  return dfData[selectedFeatures]
+  if returnRanked:
+    # return ranked features for automatic testing
+    return Hs
+  else:
+    # return df with selected features
+    dfData = utils.pd.DataFrame(dfData, columns=featureNames)
+    return dfData[selectedFeatures] 
 
-def featureSelectionRocCurve(dfData, dfLabels, removeCorrelated, numberFeatures = None, returnRanked = False):
+def featureSelectionRocCurve(dfData, dfLabels, numberFeatures = None, removeCorrelated=True, returnRanked = False):
   numberFeatures = numberFeatures if numberFeatures is not None else dfData.shape[1]
 
   featureNames = dfData.columns.values
