@@ -1,0 +1,66 @@
+1. Shapiro-Wilk normality test results for classifier 'comparisonClassifiers' and test 'comparisonClassifiers':
+
+Combination 1 (PCA Reduction Euclidean MDC): p = 0.8630 → Normal
+Combination 2 (Fisher LDA): p = 0.1983 → Normal
+Combination 3 (PCA Reduction KNN classifier): p = 0.0059 → Not normal
+Combination 4 (PCA Reduction Mahalanobis MDC): p = 0.7152 → Normal
+Combination 5 (PCA Reduction Naive Bayes classifier): p = 0.0111 → Not normal
+Combination 6 (PCA Reduction SVM classifier): p = 0.3804 → Normal
+
+Result: At least one combination is not parametric.
+
+2. Due to the normality test indicating non-parametric data, performing Kruskal-Wallis test for differences between parameter combinations of classifier 'comparisonClassifiers' and test 'comparisonClassifiers':
+Result: p = 0.0000
+Conclusion: At least one combination differs significantly from the others.
+
+3. Pairwise Mann-Whitney U tests for combinations of classifier 'comparisonClassifiers' and test 'comparisonClassifiers':
+
+→ Results without Bonferroni correction:
+Combination 2 beats Combination 1 (raw p = 0.0000)
+Combination 3 beats Combination 1 (raw p = 0.0000)
+Combination 4 beats Combination 1 (raw p = 0.0000)
+Combination 1 beats Combination 5 (raw p = 0.0000)
+Combination 6 beats Combination 1 (raw p = 0.0000)
+Combination 3 beats Combination 2 (raw p = 0.0000)
+Combination 4 beats Combination 2 (raw p = 0.0000)
+Combination 2 beats Combination 5 (raw p = 0.0000)
+Combination 6 beats Combination 2 (raw p = 0.0000)
+Combination 3 beats Combination 4 (raw p = 0.0000)
+Combination 3 beats Combination 5 (raw p = 0.0000)
+Combination 3 beats Combination 6 (raw p = 0.0000)
+Combination 4 beats Combination 5 (raw p = 0.0000)
+Combination 6 beats Combination 4 (raw p = 0.0000)
+Combination 6 beats Combination 5 (raw p = 0.0000)
+
+→ Results with Bonferroni correction:
+Combination 2 beats Combination 1 (adjusted p = 0.0000)
+Combination 3 beats Combination 1 (adjusted p = 0.0000)
+Combination 4 beats Combination 1 (adjusted p = 0.0000)
+Combination 1 beats Combination 5 (adjusted p = 0.0000)
+Combination 6 beats Combination 1 (adjusted p = 0.0000)
+Combination 3 beats Combination 2 (adjusted p = 0.0000)
+Combination 4 beats Combination 2 (adjusted p = 0.0000)
+Combination 2 beats Combination 5 (adjusted p = 0.0000)
+Combination 6 beats Combination 2 (adjusted p = 0.0000)
+Combination 3 beats Combination 4 (adjusted p = 0.0000)
+Combination 3 beats Combination 5 (adjusted p = 0.0000)
+Combination 3 beats Combination 6 (adjusted p = 0.0000)
+Combination 4 beats Combination 5 (adjusted p = 0.0000)
+Combination 6 beats Combination 4 (adjusted p = 0.0000)
+Combination 6 beats Combination 5 (adjusted p = 0.0000)
+
+→ Ranking based on number of pairwise wins (without correction):
+1. Combination 3 — 5 wins
+2. Combination 6 — 4 wins
+3. Combination 4 — 3 wins
+4. Combination 2 — 2 wins
+5. Combination 1 — 1 wins
+6. Combination 5 — 0 wins
+
+→ Ranking based on number of pairwise wins (with Bonferroni correction):
+1. Combination 3 — 5 wins
+2. Combination 6 — 4 wins
+3. Combination 4 — 3 wins
+4. Combination 2 — 2 wins
+5. Combination 1 — 1 wins
+6. Combination 5 — 0 wins
